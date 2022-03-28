@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".others.giveYourEmailOrTelephone">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolBarGiveYourEmailOrTelephoneActivity"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/transparent"
+        app:navigationIcon="@drawable/arrow_back_24"
+        app:navigationIconTint="@color/black"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/getData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/getPassword"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarGiveYourEmailOrTelephoneActivity"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="40dp"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+        android:fontFamily="sans-serif-medium"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/assistiveTextGiveYourEmailAndTelephoneActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/getData"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getData"
+        android:layout_marginTop="10dp"
+        android:text="@string/giveYourDetails"
+        android:layout_marginEnd="25dp"
+        android:textColor="#888888"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/giveEmailOrPhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/enterEmailOrPhoneNumber"
+        app:layout_constraintLeft_toLeftOf="@+id/assistiveTextGiveYourEmailAndTelephoneActivity"
+        app:layout_constraintTop_toBottomOf="@id/assistiveTextGiveYourEmailAndTelephoneActivity"
+        app:layout_constraintRight_toRightOf="@id/assistiveTextGiveYourEmailAndTelephoneActivity"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:hintEnabled="true"
+        app:errorEnabled="true"
+        app:endIconMode="clear_text"
+        android:layout_marginTop="15dp"
+        app:helperText="@string/required">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/givenData"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/sendDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/giveEmailOrPhoneNumber"
+        app:layout_constraintRight_toRightOf="@id/giveEmailOrPhoneNumber"
+        app:layout_constraintTop_toBottomOf="@id/giveEmailOrPhoneNumber"
+        android:layout_marginTop="20dp"
+        android:text="@string/send"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/profilePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profilePhoto"
+        android:textColor="@color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_baseline_camera_56"
+        app:srcCompat="@drawable/ic_baseline_delete_24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePhoto"
+        android:layout_marginStart="25dp"
+        android:scaleType="center"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_baseline_camera_56"
+        app:srcCompat="@drawable/photo_library_24_dark_blue"
+        app:layout_constraintLeft_toRightOf="@id/delete"
+        app:layout_constraintTop_toTopOf="@+id/delete"
+        android:layout_marginStart="28dp"
+        app:layout_goneMarginStart="25dp"
+        android:scaleType="center"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_baseline_camera_56"
+        app:srcCompat="@drawable/ic_baseline_photo_camera_dark_blue"
+        app:layout_constraintTop_toTopOf="@+id/gallery"
+        app:layout_constraintLeft_toRightOf="@+id/gallery"
+        android:layout_marginStart="28dp"
+        android:scaleType="center"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/deleteText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/delete"
+        app:layout_constraintRight_toRightOf="@+id/delete"
+        app:layout_constraintTop_toBottomOf="@+id/delete"
+        android:text="@string/delete"
+        android:gravity="center"
+         />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/galleyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/gallery"
+        app:layout_constraintRight_toRightOf="@+id/gallery"
+        app:layout_constraintTop_toBottomOf="@+id/gallery"
+        android:text="@string/gallery"
+        android:gravity="center"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cameraText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/camera"
+        app:layout_constraintRight_toRightOf="@+id/camera"
+        app:layout_constraintTop_toBottomOf="@+id/camera"
+        android:text="@string/camera"
+        android:gravity="center"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

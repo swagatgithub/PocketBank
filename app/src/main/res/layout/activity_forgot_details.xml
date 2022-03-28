@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".others.forgotDetails">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolBarForgotDetailsActivity"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/arrow_back_24"
+        app:navigationIconTint="@color/black"
+        android:background="@android:color/transparent"/>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/unLock"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintLeft_toLeftOf="@+id/toolBarForgotDetailsActivity"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarForgotDetailsActivity"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:background="@color/lightestAubergine"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+        app:srcCompat="@drawable/ic_baseline_lock_open_48"
+        android:scaleType="centerInside"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/accountRecovery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/accountRecovery"
+        app:layout_constraintLeft_toLeftOf="@+id/unLock"
+        app:layout_constraintTop_toBottomOf="@id/unLock"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-medium"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/problemFacing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/problemFacing"
+        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+        android:textColor="#888888"
+        app:layout_constraintLeft_toLeftOf="@+id/accountRecovery"
+        app:layout_constraintTop_toBottomOf="@id/accountRecovery"
+        android:layout_marginTop="15dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_32"
+        app:layout_constraintLeft_toLeftOf="@id/problemFacing"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/problemFacing"
+        android:layout_marginEnd="25dp"
+        android:text="@string/forgotPassword"
+        android:background="@drawable/textview_background"
+        android:layout_marginTop="15dp"
+        style="@style/TextAppearance.Material3.LabelMedium"
+        android:textSize="13sp"
+
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/forgotEmail"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_32"
+        app:layout_constraintLeft_toLeftOf="@id/forgotPassword"
+        app:layout_constraintRight_toRightOf="@id/forgotPassword"
+        app:layout_constraintTop_toBottomOf="@id/forgotPassword"
+        android:text="@string/forgotEmail"
+        android:background="@drawable/textview_background"
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        android:textSize="13sp"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/forgotAllDetails"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_32"
+        app:layout_constraintLeft_toLeftOf="@id/forgotEmail"
+        app:layout_constraintRight_toRightOf="@id/forgotEmail"
+        app:layout_constraintTop_toBottomOf="@id/forgotEmail"
+        android:text="@string/forgotAllDetails"
+        android:background="@drawable/textview_background"
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        android:textSize="13sp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

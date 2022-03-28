@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/statistics"
+        android:title="@string/stats"
+        android:icon="@drawable/statistics"/>
+
+    <item
+        android:id="@+id/transactions"
+        android:title="@string/Trans"
+        android:icon="@drawable/stats_24"/>
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/ic_outline_home_24"/>
+
+    <item
+        android:id="@+id/loan"
+        android:title="@string/loan"
+        android:icon="@drawable/stats_24"/>
+
+    <item
+        android:id="@+id/investment"
+        android:title="@string/Investment"
+        android:icon="@drawable/stats_24"/>
+
+</menu>

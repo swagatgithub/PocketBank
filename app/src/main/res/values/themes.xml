@@ -1,0 +1,197 @@
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.PocketBank" parent="Theme.Material3.Light.NoActionBar">
+
+        <!-- Primary brand color. -->
+
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/russianViolet</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="android:colorControlHighlight">@color/lightestAubergine</item>
+
+        <item name="colorError">@color/Red</item>
+
+        <item name="android:windowBackground">@color/white</item>
+        <!-- Secondary brand color. -->
+
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="android:autofilledHighlight" tools:targetApi="o">@android:color/transparent</item>
+
+        <!-- Status bar color. -->
+
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Customize your theme here. -->
+
+        <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
+
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+
+        <!--<item name="android:colorBackground">@color/white</item>-->
+
+        <item name="android:navigationBarColor">@color/ghostWhite</item>
+
+        <item name="textInputStyle">@style/customTextInputLayoutStyle</item>
+        
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+
+    </style>
+
+        <style name="customTextInputLayoutStyle" parent="Base.Widget.MaterialComponents.TextInputLayout">
+
+            <item name="hintTextColor">@color/aubergine</item>
+
+            <item name="errorTextAppearance">@style/customErrorTextAppearance</item>
+
+            <item name="boxBackgroundMode">none</item>
+
+            <item name="android:textColorHint">@color/steelGray</item>
+
+            <item name="materialThemeOverlay">@style/customThemeOverlay</item>
+
+        </style>
+
+        <style name="customThemeOverlay">
+
+            <item name="editTextStyle">@style/customEditTextStyle</item>
+
+            <item name="colorSecondary">@color/darkGrey</item>
+
+        </style>
+
+    <style name="customEditTextStyle" parent="Widget.Design.TextInputEditText">
+
+        <item name="android:textAppearance"> @style/TextAppearance.Material3.BodyLarge </item>
+        <!--<item name="backgroundTint"-->
+    </style>
+
+        <style name="customErrorTextAppearance" parent="TextAppearance.Design.Error">
+
+            <item name="fontFamily"> sans-serif-medium </item>
+
+        </style>
+
+    <!--editTextStyling-->
+    <!--toolbarStyling-->
+
+    <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar.Surface">
+
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.TitleLarge</item>
+
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar" parent="">
+
+        <item name="colorSurface">@color/aubergine</item>
+        <item name="colorOnSurface">@color/white</item>
+
+    </style>
+
+    <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+
+        <item name="fontFamily"> serif </item>
+        <item name="android:fontFamily">serif</item>
+
+    </style>
+    <!--toolbarStyling-->
+
+    <!--floatingActionButtonStyle-->
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorContainer">@color/aubergine</item>
+        <item name="colorOnContainer">@color/white</item>
+    </style>
+
+    <!--floatingActionButtonStyle-->
+
+    <!--bottomNavigationView-->
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/darkGrey</item>
+        <item name="colorOnSecondaryContainer">@color/black</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorSecondaryContainer">@color/white</item>
+
+    </style>
+
+    <!--bottomNavigationView-->
+
+    <!--buttonStyle-->
+
+    <style name="Widget.App.Button" parent="Widget.Material3.Button">
+
+        <item name="backgroundTint">@color/aubergine</item>
+
+        <!--#670254-->
+    </style>
+
+    <!--buttonStyle-->
+    <style name="customAlertTheme" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name ="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorPrimary">@color/darkBlue</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+
+        <item name="cornerSize">16dp</item>
+
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="rounderCorner">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="profilePictureActivity" parent="Theme.PocketBank">
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
+
+    <!--Alert Dialog Theme-->
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/white</item>
+    </style>
+
+    <!--Alert Dialog Theme-->
+
+</resources>
