@@ -20,7 +20,7 @@ PocketBank Is a personal money management application specially build for androi
   </tr>
   <tr>
      <td><img src="https://user-images.githubusercontent.com/79393396/174038517-66f730c6-259c-4e14-807f-c26fa445e8d3.jpg" width=270 height=480></td>
-    <td><img src="https://user-images.githubusercontent.com/79393396/174040194-65b6d90e-4c66-4ad6-b4e9-64bb99693974.jpg"></td>
+    <td><img src="https://user-images.githubusercontent.com/79393396/174040194-65b6d90e-4c66-4ad6-b4e9-64bb99693974.jpg" width=270 height=480></td>
     <td><img src="https://user-images.githubusercontent.com/79393396/174039746-5b009171-a2d3-4063-a4bd-7f23c340ecba.jpg" width=270 height=480></td>
   </tr>
  </table>
