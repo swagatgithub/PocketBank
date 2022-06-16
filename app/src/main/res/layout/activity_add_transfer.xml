@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".others.addTransfer">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuidelineTransferActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuidelineTransferActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp"/>
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarAddTransferActivity"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/addTransfer"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amountLayoutAddTransferActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransferActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineTransferActivity"
+        app:layout_constraintTop_toBottomOf="@id/toolbarAddTransferActivity"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        android:hint="@string/Amount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amountEditTextAddTransferActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:importantForAutofill="no"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/recipientLayoutAddTransferActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransferActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineTransferActivity"
+        app:layout_constraintTop_toBottomOf="@id/amountLayoutAddTransferActivity"
+        app:errorEnabled="true"
+        android:hint="@string/recipient"
+        android:layout_marginTop="2dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/recipientEditTextAddTransferActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:importantForAutofill="no"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dateLayoutAddTransferActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransferActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineTransferActivity"
+        app:layout_constraintTop_toBottomOf="@id/recipientLayoutAddTransferActivity"
+        app:errorEnabled="true"
+        android:hint="@string/date"
+        android:layout_marginTop="2dp"
+        app:endIconDrawable="@drawable/ic_baseline_date_range_24"
+        app:endIconMode="custom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dateEditTextAddTransferActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:importantForAutofill="no"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descriptionLayoutAddTransferActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransferActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineTransferActivity"
+        app:layout_constraintTop_toBottomOf="@id/dateLayoutAddTransferActivity"
+        app:errorEnabled="true"
+        android:hint="@string/description"
+        android:layout_marginTop="2dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/descriptionEditTextAddTransferActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:importantForAutofill="no"
+            android:maxLines="2"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/typeOfTransfer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransferActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineTransferActivity"
+        app:layout_constraintTop_toBottomOf="@id/descriptionLayoutAddTransferActivity"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:checkedButton="@id/send">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/receive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/receive"/>
+
+    </RadioGroup>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addTransfer"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransferActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineTransferActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="20sp"
+        android:text="@string/addTransfer"
+        android:layout_marginBottom="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

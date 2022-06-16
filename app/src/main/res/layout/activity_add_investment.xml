@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".others.addInvestment">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolBarInvestmentActivity"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/addInvestment"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftGuidelineTransactionFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightGuidelineTransactionFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentNameLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransactionFragment"
+            app:layout_constraintRight_toRightOf="@id/rightGuidelineTransactionFragment"
+            app:layout_constraintTop_toBottomOf="@id/toolBarInvestmentActivity"
+            android:layout_marginTop="20dp"
+            android:hint="@string/investmentName"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/investmentNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/initialAmountLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransactionFragment"
+            app:layout_constraintRight_toRightOf="@id/rightGuidelineTransactionFragment"
+            app:layout_constraintTop_toBottomOf="@id/investmentNameLayout"
+            android:hint="@string/initialAmount"
+            app:errorEnabled="true"
+            android:layout_marginTop="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/initialAmountEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/monthlyROILayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransactionFragment"
+            app:layout_constraintRight_toRightOf="@id/rightGuidelineTransactionFragment"
+            app:layout_constraintTop_toBottomOf="@id/initialAmountLayout"
+            android:hint="@string/monthlyROI"
+            app:errorEnabled="true"
+            android:layout_marginTop="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/monthlyROIEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/initialDateLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransactionFragment"
+            app:layout_constraintRight_toRightOf="@id/rightGuidelineTransactionFragment"
+            app:layout_constraintTop_toBottomOf="@id/monthlyROILayout"
+            app:endIconDrawable="@drawable/ic_baseline_date_range_24"
+            android:hint="@string/initialDate"
+            app:errorEnabled="true"
+            app:endIconMode="custom"
+            android:layout_marginTop="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/initialDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="date"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/finishDateLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransactionFragment"
+            app:layout_constraintRight_toRightOf="@id/rightGuidelineTransactionFragment"
+            app:layout_constraintTop_toBottomOf="@id/initialDateLayout"
+            app:endIconDrawable="@drawable/ic_baseline_date_range_24"
+            android:hint="@string/finishDate"
+            app:errorEnabled="true"
+            app:endIconMode="custom"
+            android:layout_marginTop="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/finishDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="date"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addInvestment"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:text="@string/addInvestment"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuidelineTransactionFragment"
+            app:layout_constraintRight_toRightOf="@id/rightGuidelineTransactionFragment"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

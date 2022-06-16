@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/rectangleContainer" android:drawable="@drawable/ic_baseline_square_100"/>
+    <item android:drawable="@drawable/ic_baseline_show_chart_24" android:gravity="center" android:bottom="25dp" />
+    <item android:drawable="@drawable/rupee_with_background" android:gravity="center" android:top="30dp" android:left="20dp"/>
+</layer-list>
