@@ -1,6 +1,4 @@
 PocketBank Is a personal money management application specially build for android OS . It can track your savings , investments , loans and can represent all those datas in graphical format.
-![profilePhotoScreen](https://user-images.githubusercontent.com/79393396/174038517-66f730c6-259c-4e14-807f-c26fa445e8d3.jpg)
-
 <table>
   <tr>
     <td>Home Screen</td>
