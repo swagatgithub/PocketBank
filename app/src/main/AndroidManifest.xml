@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pocketbank">
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true"/>
+        android:required="true" />
 
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".myApplication"
@@ -19,38 +18,60 @@
         android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.PocketBank">
-
         <activity
-            android:name=".others.giveYourEmailOrTelephone"
+            android:name=".others.addLoan"
             android:exported="false"
-            android:parentActivityName=".others.forgotDetails"/>
-
+            android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".others.forgotDetails"
+            android:name=".others.addTransfer"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:parentActivityName=".authentication.Login"
-            />
-
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".others.seeProfileImage"
+            android:name=".others.addInvestment"
             android:exported="false"
-            android:theme="@style/profilePictureActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".shopping.addShopping"
-            android:exported="false" />
-        <activity
-            android:name=".chart.barChartActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".others.launcher"
+            android:exported="true"
+            android:theme="@style/splashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity
+            android:name=".others.chooseItem"
+            android:exported="false" />
+
+        <activity
+            android:name=".others.giveYourEmailOrTelephone"
+            android:exported="false"
+            android:parentActivityName=".others.forgotDetails" />
+
+        <activity
+            android:name=".others.forgotDetails"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:parentActivityName=".authentication.Login" />
+
+        <activity
+            android:name=".others.seeProfileImage"
+            android:exported="false"
+            android:theme="@style/profilePictureActivity" />
+
+        <activity
+            android:name=".others.addShopping"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name=".authentication.Login"
@@ -61,9 +82,7 @@
         <activity
             android:name=".authentication.Registration"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
 
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
@@ -71,7 +90,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.pocketbank.fileprovider"
+            android:authorities="com.example.pocketBank.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
 
@@ -80,6 +99,7 @@
                 android:resource="@xml/file_paths" />
 
         </provider>
+
 
     </application>
 

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".others.addLoan">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolBarAddLoanActivity"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/addLoan"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuidelineAddLoanActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuidelineAddLoanActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loanTypeTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuidelineAddLoanActivity"
+            app:layout_constraintRight_toRightOf="@id/rightGuidelineAddLoanActivity"
+            app:layout_constraintTop_toBottomOf="@id/toolBarAddLoanActivity"
+            android:layout_marginTop="20dp"
+            app:errorEnabled="true"
+            android:hint="@string/loanType">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loanTypeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:importantForAutofill="no"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lenderNameTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/leftGuidelineAddLoanActivity"
+            app:layout_constraintRight_toRightOf="@id/rightGuidelineAddLoanActivity"
+            app:layout_constraintTop_toBottomOf="@id/loanTypeTextInputLayout"
+            android:layout_marginTop="2dp"
+            app:errorEnabled="true"
+            android:hint="@string/lenderName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lenderNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:importantForAutofill="no"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/initialAmountLayoutAddLoanActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineAddLoanActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineAddLoanActivity"
+        app:layout_constraintTop_toBottomOf="@id/lenderNameTextInputLayout"
+        android:layout_marginTop="2dp"
+        app:errorEnabled="true"
+        android:hint="@string/initialAmount">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/initialAmountEditTextAddLoanActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:importantForAutofill="no"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/monthlyROILayoutAddLoanActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineAddLoanActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineAddLoanActivity"
+        app:layout_constraintTop_toBottomOf="@id/initialAmountLayoutAddLoanActivity"
+        android:layout_marginTop="2dp"
+        app:errorEnabled="true"
+        android:hint="@string/monthlyROI">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/monthlyROIEditTextAddLoanActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:importantForAutofill="no"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/monthlyPaymentLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineAddLoanActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineAddLoanActivity"
+        app:layout_constraintTop_toBottomOf="@id/monthlyROILayoutAddLoanActivity"
+        android:layout_marginTop="2dp"
+        app:errorEnabled="true"
+        android:hint="@string/monthlyPayment">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/monthlyPaymentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:importantForAutofill="no"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/initialDateLayoutAddLoanActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineAddLoanActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineAddLoanActivity"
+        app:layout_constraintTop_toBottomOf="@id/monthlyPaymentLayout"
+        android:layout_marginTop="2dp"
+        app:errorEnabled="true"
+        android:hint="@string/initialDate"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_baseline_date_range_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/initialDateEditTextAddLoanActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:importantForAutofill="no"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/finishDateLayoutAddLoanActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineAddLoanActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineAddLoanActivity"
+        app:layout_constraintTop_toBottomOf="@id/initialDateLayoutAddLoanActivity"
+        android:layout_marginTop="2dp"
+        app:errorEnabled="true"
+        android:hint="@string/finishDate"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_baseline_date_range_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/finishDateEditTextAddLoanActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:importantForAutofill="no"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addLoan"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuidelineAddLoanActivity"
+        app:layout_constraintRight_toRightOf="@id/rightGuidelineAddLoanActivity"
+        app:layout_constraintTop_toBottomOf="@id/finishDateLayoutAddLoanActivity"
+        android:textSize="20sp"
+        android:text="@string/addLoan"
+        android:layout_marginTop="30dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

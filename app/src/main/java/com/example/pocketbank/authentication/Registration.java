@@ -3,6 +3,7 @@ package com.example.pocketbank.authentication;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import android.animation.LayoutTransition;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,35 +15,40 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.bumptech.glide.Glide;
 import com.example.pocketbank.MainActivity;
 import com.example.pocketbank.R;
 import com.example.pocketbank.databinding.ActivityRegistrationBinding;
 import com.example.pocketbank.model.user;
 import com.example.pocketbank.myApplication;
-import com.example.pocketbank.utils;
+import com.example.pocketbank.others.utils;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.divider.MaterialDivider;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.Gson;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
 
 public class Registration extends AppCompatActivity
 {
-    private final String TAG ="RegistrationActivity";
-    private MaterialTextView loginTextView, orTextView , nameFromGoogle, emailFromGoogle , notYouText;
+    private MaterialTextView loginTextView, orTextView , notYouTextView;
     private Registration registrationActivityContext;
     private MaterialButton registerButton, googleSignInButton;
     private ActivityRegistrationBinding binder;
@@ -51,16 +57,16 @@ public class Registration extends AppCompatActivity
     private MaterialDivider leftMaterialDivider, rightMaterialDivider;
     private ExecutorService applicationExecutorService;
     private SQLiteDatabase readableDatabaseRegistrationActivity , writeableDatabaseRegistrationActivity;
-    private ViewGroup viewGroup, allGoogleData;
     private String currentEmail,currentPassword,currentName,currentAddress;
-    private Bundle gotBundle;
-    private ShapeableImageView profilePhotoFromGoogle;
+    private boolean userExists;
+    private ActivityResultLauncher<Intent> signInWithGoogleRegistrationActivity;
+    private GoogleSignInClient googleSignInClientRegistrationActivity;
+    private user existedUserOfApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        gotBundle = getIntent().getBundleExtra("signInWithGoogle");
         registrationActivityContext = this;
         applicationExecutorService = myApplication.getExecutorService();
         writeableDatabaseRegistrationActivity = myApplication.writeableDatabase;
@@ -68,10 +74,62 @@ public class Registration extends AppCompatActivity
         binder = ActivityRegistrationBinding.inflate(getLayoutInflater());
         setContentView(binder.getRoot());
         initViews();
+
+        googleSignInClientRegistrationActivity = myApplication.getGoogleSignInClient();
+
+        signInWithGoogleRegistrationActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>()
+        {
+            @Override
+            public void onActivityResult(ActivityResult result)
+            {
+                if (result.getResultCode() == Activity.RESULT_OK)
+                {
+                    try {
+                        GoogleSignInAccount account = GoogleSignIn.getSignedInAccountFromIntent(result.getData()).getResult(ApiException.class);
+                        handleGoogleSignInButtonClick(account);
+                    } catch (ApiException ee) {
+                        Toast.makeText(registrationActivityContext, GoogleSignInStatusCodes.getStatusCodeString(ee.getStatusCode()), Toast.LENGTH_SHORT).show();
+                        ee.printStackTrace();
+                    }
+                }
+            }
+
+            private void handleGoogleSignInButtonClick(GoogleSignInAccount account)
+            {
+                if(existedUserOfApp != null)
+                {
+                    if(existedUserOfApp.getEmail().equals(account.getEmail()))
+                    {
+                        utils utility = new utils(registrationActivityContext);
+                        utility.addUserToSharedPreferences(existedUserOfApp);
+                        startActivity(new Intent(registrationActivityContext, MainActivity.class));
+                        finish();
+                        Login.finishLogin();
+                    }
+
+                }
+                else
+                {
+                    editTextEmailRegistrationActivity.setText(account.getEmail());
+                    notYouTextView.setVisibility(VISIBLE);
+                    passwordTextInputLayout.setVisibility(VISIBLE);
+                    passwordTextInputLayout.requestFocus();
+                    ((ConstraintLayout.LayoutParams) registerButton.getLayoutParams()).topToBottom = R.id.passwordInputLayoutRegistration;
+                    googleSignInButton.setVisibility(GONE);
+                    rightMaterialDivider.setVisibility(GONE);
+                    leftMaterialDivider.setVisibility(GONE);
+                    orTextView.setVisibility(GONE);
+                    currentName = account.getDisplayName();
+                }
+            }
+
+        });
+        
     }
 
-    private void initViews() {
-        viewGroup = binder.parent;
+    private void initViews()
+    {
+        ViewGroup viewGroup = binder.parent;
         LayoutTransition layoutTransition = new LayoutTransition();
         layoutTransition.setDuration(LayoutTransition.APPEARING, 1000);
         layoutTransition.setDuration(LayoutTransition.DISAPPEARING, 500);
@@ -86,45 +144,50 @@ public class Registration extends AppCompatActivity
         editTextPasswordRegistrationActivity = binder.editTextPasswordRegistration;
         editTextNameRegistrationActivity = binder.editTextNameRegistration;
         editTextAddressRegistrationActivity = binder.editTextAddressRegistration;
-        profilePhotoFromGoogle = binder.profilePhotoFromGoogle;
-        notYouText = binder.notYou;
-        nameFromGoogle = binder.googleDisplayName;
-        emailFromGoogle = binder.emailFromGoogle;
-        allGoogleData = binder.allGoogleData;
+        notYouTextView = binder.notYou;
         registerButton = binder.register;
         googleSignInButton = binder.googleSignInButton;
         leftMaterialDivider = binder.leftDivider;
         rightMaterialDivider = binder.rightDivider;
         orTextView = binder.or;
         setListeners();
-        if (gotBundle != null)
-            createSignInWithGoogleLayout();
-    }
-
-    private void createSignInWithGoogleLayout()
-    {
-        emailTextInputLayout.setVisibility(GONE);
-        registerButton.setText(R.string.Register);
-        allGoogleData.setVisibility(VISIBLE);
-        ((ConstraintLayout.LayoutParams) passwordTextInputLayout.getLayoutParams()).topToBottom = R.id.allGoogleData;
-        passwordTextInputLayout.setVisibility(VISIBLE);
-        passwordTextInputLayout.requestFocus();
-        ((ConstraintLayout.LayoutParams) registerButton.getLayoutParams()).topToBottom = R.id.passwordInputLayoutRegistration;
-        googleSignInButton.setVisibility(GONE);
-        leftMaterialDivider.setVisibility(GONE);
-        rightMaterialDivider.setVisibility(GONE);
-        orTextView.setVisibility(GONE);
-        nameFromGoogle.setText(gotBundle.getString("name"));
-        emailFromGoogle.setText(gotBundle.getString("email"));
-        Glide.with(registrationActivityContext).load(gotBundle.getString("photoUri")).into(profilePhotoFromGoogle);
     }
 
     @Override
     protected void onStart()
     {
         super.onStart();
-        editTextEmailRegistrationActivity.requestFocus();
-        setTextAndItsColor(loginTextView,getString(R.string.alternativeSignIn));
+        if (myApplication.hasIntentExtras(getIntent()))
+        {
+            if(getIntent().getExtras().getBoolean("signInWithGoogle"))
+            {
+                editTextEmailRegistrationActivity.setText(getIntent().getExtras().getString("email"));
+                currentName = getIntent().getExtras().getString("name");
+                leftMaterialDivider.setVisibility(GONE);
+                orTextView.setVisibility(GONE);
+                rightMaterialDivider.setVisibility(GONE);
+                googleSignInButton.setVisibility(GONE);
+            }
+            else
+            {
+                Gson gson = new Gson();
+                Class<user> userObject=null;
+                try
+                {
+                    userObject = (Class<user>) Class.forName("com.example.pocketbank.model.user");
+                }
+                catch (ClassNotFoundException e)
+                {
+                    e.printStackTrace();
+                }
+                userExists = getIntent().getExtras().getBoolean("oneUserExists");
+                existedUserOfApp = gson.fromJson(getIntent().getExtras().getString("thatParticularUser"),userObject);
+                editTextEmailRegistrationActivity.requestFocus();
+            }
+        }
+        else
+            editTextEmailRegistrationActivity.requestFocus();
+        setTextAndItsColor(loginTextView, getString(R.string.alternativeSignIn));
     }
 
     private void startUserRegistration()
@@ -134,120 +197,120 @@ public class Registration extends AppCompatActivity
             @Override
             public void run()
             {
-                try
+                if (userExists)
                 {
-
-                    Cursor cursor = readableDatabaseRegistrationActivity.query("user", new String[]{"userId", "email"}, "email=?", new String[]{editTextEmailRegistrationActivity.getText().toString()}, null, null, null);
-                    if(cursor.moveToFirst())
-                        emailTextInputLayout.setError(getString(R.string.usedEmail));
-                    else
-                        insertRecordIntoDb();
-                    cursor.close();
-
-                }
-                catch (Exception ee)
-                {
-                    ee.printStackTrace();
-                }
+                    registrationActivityContext.runOnUiThread(() -> {
+                        myApplication.dialogIt(R.string.oneUserAllowed, registrationActivityContext);
+                        if(GoogleSignIn.getLastSignedInAccount(registrationActivityContext) != null)
+                            myApplication.getGoogleSignInClient().signOut();
+                    });
+                } else
+                    insertRecordIntoDb();
             }
+
             private void insertRecordIntoDb()
             {
                 ContentValues record = new ContentValues();
-                record.put("name", editTextNameRegistrationActivity.getText().toString());
-                record.put("password", editTextPasswordRegistrationActivity.getText().toString());
-                record.put("email", editTextEmailRegistrationActivity.getText().toString());
-                record.put("address",  Objects.requireNonNull(editTextAddressRegistrationActivity.getText()).toString());
-                record.put("remainedAmount", 0.0);
+                record.put("name", Objects.requireNonNull(editTextNameRegistrationActivity.getText()).toString());
+                record.put("password", Objects.requireNonNull(editTextPasswordRegistrationActivity.getText()).toString());
+                record.put("email", Objects.requireNonNull(editTextEmailRegistrationActivity.getText()).toString());
+                record.put("address", Objects.requireNonNull(editTextAddressRegistrationActivity.getText()).toString());
+                record.put("remainedAmount", 0);
 
                 long insertValue = writeableDatabaseRegistrationActivity.insert("user", null, record);
                 if (insertValue == -1) {
-                    registrationActivityContext.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run()
-                        {
-                                Toast.makeText(getApplicationContext(), R.string.registrationUnSuccessful, Toast.LENGTH_SHORT).show();
-                        }
-                        });
-                    } else {
-                        registrationActivityContext.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), R.string.registrationSuccessful, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(registrationActivityContext, MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                            }
-                        });
-                        saveInSharedPreference(insertValue);
-                    }
-                }
-                private void saveInSharedPreference(long rowId)
+                    registrationActivityContext.runOnUiThread(() -> Toast.makeText(getApplicationContext(), R.string.registrationUnSuccessful, Toast.LENGTH_SHORT).show());
+                } else
                 {
-                    Cursor cursor_1 = readableDatabaseRegistrationActivity.query("user", null, "userId=?", new String[]{String.valueOf(rowId)}, null, null, null);
-                    cursor_1.moveToFirst();
-                    user currentUser = new user();
-                    currentUser.setUserId(cursor_1.getInt(cursor_1.getColumnIndexOrThrow("userId")));
-                    currentUser.setName(cursor_1.getString(cursor_1.getColumnIndexOrThrow("name")));
-                    currentUser.setAddress(cursor_1.getString(cursor_1.getColumnIndexOrThrow("address")));
-                    currentUser.setRemainedAmount(cursor_1.getDouble(cursor_1.getColumnIndexOrThrow("remainedAmount")));
-                    currentUser.setEmail(cursor_1.getString(cursor_1.getColumnIndexOrThrow("email")));
-                    currentUser.setPassword(cursor_1.getString(cursor_1.getColumnIndexOrThrow("password")));
-                    cursor_1.close();
-                    utils utility = new utils(registrationActivityContext);
-                    utility.addUserToSharedPreferences(currentUser);
+                    registrationActivityContext.runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(), R.string.registrationSuccessful, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(registrationActivityContext, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    });
+                    saveInSharedPreference(insertValue);
                 }
+            }
 
-            });
+            private void saveInSharedPreference(long rowId) {
+                Cursor cursor_1 = readableDatabaseRegistrationActivity.query("user", null, "userId=?", new String[]{String.valueOf(rowId)}, null, null, null);
+                cursor_1.moveToFirst();
+                user currentUser = new user();
+                currentUser.setUserId(cursor_1.getInt(cursor_1.getColumnIndexOrThrow("userId")));
+                currentUser.setName(cursor_1.getString(cursor_1.getColumnIndexOrThrow("name")));
+                currentUser.setAddress(cursor_1.getString(cursor_1.getColumnIndexOrThrow("address")));
+                currentUser.setRemainedAmount(cursor_1.getDouble(cursor_1.getColumnIndexOrThrow("remainedAmount")));
+                currentUser.setEmail(cursor_1.getString(cursor_1.getColumnIndexOrThrow("email")));
+                currentUser.setPassword(cursor_1.getString(cursor_1.getColumnIndexOrThrow("password")));
+
+                cursor_1.close();
+                utils utility = new utils(registrationActivityContext);
+                utility.addUserToSharedPreferences(currentUser);
+
+            }
+
+        });
+
     }
-
 
     private void setListeners()
     {
-
-        registerButton.setOnClickListener(new View.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View view)
-            {
-                if(registerButton.getText().equals(getString(R.string.Continue)))
-                    loadViewsIntoLayout();
-                else
+        registerButton.setOnClickListener(view -> {
+            if (registerButton.getText().equals(getString(R.string.Continue)))
+                loadViewsIntoLayout();
+            else {
+                if (checkName())
                     startUserRegistration();
-            }
-
-        });
-
-        loginTextView.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                onBackPressed();
-            }
-
-        });
-
-        editTextPasswordRegistrationActivity.setOnFocusChangeListener(new View.OnFocusChangeListener()
-        {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus)
-            {
-                if(!hasFocus && Objects.requireNonNull(((TextInputEditText) v).getText()).length() != 0)
-                {
-                    ((myApplication)getApplicationContext()).checkPassword(passwordTextInputLayout,editTextPasswordRegistrationActivity);
-                    addTextChanger((TextInputEditText)v);
-                }
+                else
+                    addTextChanger(editTextNameRegistrationActivity);
             }
         });
 
-        notYouText.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
+        loginTextView.setOnClickListener(view -> onBackPressed());
 
+        editTextPasswordRegistrationActivity.setOnFocusChangeListener((v, hasFocus) -> {
+
+            if (!hasFocus && Objects.requireNonNull(((TextInputEditText) v).getText()).length() != 0) {
+                ((myApplication) getApplicationContext()).checkPassword(passwordTextInputLayout, editTextPasswordRegistrationActivity);
+                addTextChanger((TextInputEditText) v);
             }
+        });
+
+        editTextEmailRegistrationActivity.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus && Objects.requireNonNull(((TextInputEditText) v).getText()).length() != 0) {
+                ((myApplication) getApplicationContext()).checkEmail(emailTextInputLayout, editTextEmailRegistrationActivity);
+                addTextChanger((TextInputEditText) v);
+            }
+        });
+
+        editTextNameRegistrationActivity.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                checkName();
+                addTextChanger(editTextNameRegistrationActivity);
+            }
+        });
+
+        googleSignInButton.setOnClickListener(v -> signInWithGoogleRegistrationActivity.launch(googleSignInClientRegistrationActivity.getSignInIntent()));
+
+        notYouTextView.setOnClickListener(v -> {
+            notYouTextView.setVisibility(GONE);
+            myApplication.getGoogleSignInClient().signOut();
+            currentName =null;
+            currentAddress = null;
+            nameTextInputLayout.setVisibility(GONE);
+            addressTextInputLayout.setVisibility(GONE);
+            googleSignInButton.setVisibility(VISIBLE);
+            orTextView.setVisibility(VISIBLE);
+            leftMaterialDivider.setVisibility(VISIBLE);
+            rightMaterialDivider.setVisibility(VISIBLE);
+            emailTextInputLayout.setVisibility(VISIBLE);
+            passwordTextInputLayout.setVisibility(GONE);
+            editTextPasswordRegistrationActivity.setText(null);
+            ((TextInputLayout)editTextEmailRegistrationActivity.getParent().getParent()).setError(null);
+            registerButton.setText(R.string.Continue);
+            ((ConstraintLayout.LayoutParams)registerButton.getLayoutParams()).topToBottom = R.id.emailInputLayoutRegistration;
+            editTextEmailRegistrationActivity.setText(null);
+            editTextEmailRegistrationActivity.requestFocus();
         });
 
     }
@@ -279,6 +342,7 @@ public class Registration extends AppCompatActivity
             else
                 checkPasswordValue();
         }
+
     }
 
     private void checkPasswordValue()
@@ -293,24 +357,29 @@ public class Registration extends AppCompatActivity
           {
               if(((myApplication)getApplicationContext()).checkPassword(passwordTextInputLayout,editTextPasswordRegistrationActivity))
               {
+                  registerButton.setText(R.string.Join);
+                  ((ConstraintLayout.LayoutParams)registerButton.getLayoutParams()).topToBottom = R.id.addressInputLayoutRegistrationActivity;
                   currentEmail = Objects.requireNonNull(editTextEmailRegistrationActivity.getText()).toString();
                   currentPassword = editTextPasswordRegistrationActivity.getText().toString();
-                  emailTextInputLayout.setVisibility(GONE);
-
-                  passwordTextInputLayout.setVisibility(GONE);
-
-                  nameTextInputLayout.setVisibility(VISIBLE);
-                  nameTextInputLayout.requestFocus();
-                  addressTextInputLayout.setVisibility(VISIBLE);
                   editTextNameRegistrationActivity.setText(currentName);
                   editTextAddressRegistrationActivity.setText(currentAddress);
-                  registerButton.setText(R.string.agreeAndJoin);
-                  ((ConstraintLayout.LayoutParams)registerButton.getLayoutParams()).topToBottom = R.id.addressInputLayoutRegistrationActivity;
+                  emailTextInputLayout.setVisibility(GONE);
+                  passwordTextInputLayout.setVisibility(GONE);
+                  if(Objects.requireNonNull(editTextNameRegistrationActivity.getText()).length() == 0)
+                      nameTextInputLayout.requestFocus();
+                  else
+                  {
+                      if(Objects.requireNonNull(editTextAddressRegistrationActivity.getText()).length() == 0)
+                          addressTextInputLayout.requestFocus();
+                  }
+                  nameTextInputLayout.setVisibility(VISIBLE);
+                  addressTextInputLayout.setVisibility(VISIBLE);
               }
               else
                   addTextChanger(editTextPasswordRegistrationActivity);
           }
     }
+
     private void addTextChanger(@NonNull TextInputEditText view)
     {
         view.addTextChangedListener(new TextWatcher()
@@ -336,7 +405,7 @@ public class Registration extends AppCompatActivity
                     ((myApplication)getApplicationContext()).checkPassword(passwordTextInputLayout,view);
                 else
                 {
-                    ((TextInputLayout)view.getParent().getParent()).setError(null);
+                    checkName();
                 }
             }
 
@@ -354,10 +423,11 @@ public class Registration extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
+
         if (nameTextInputLayout.getVisibility() == VISIBLE)
         {
-            currentName = editTextNameRegistrationActivity.getText().toString();
-            currentAddress = editTextAddressRegistrationActivity.getText().toString();
+            currentName = Objects.requireNonNull(editTextNameRegistrationActivity.getText()).toString();
+            currentAddress = Objects.requireNonNull(editTextAddressRegistrationActivity.getText()).toString();
             nameTextInputLayout.setVisibility(GONE);
             addressTextInputLayout.setVisibility(GONE);
             registerButton.setText(R.string.Continue);
@@ -366,13 +436,36 @@ public class Registration extends AppCompatActivity
             editTextEmailRegistrationActivity.setText(currentEmail);
             editTextPasswordRegistrationActivity.setText(currentPassword);
             ((ConstraintLayout.LayoutParams)registerButton.getLayoutParams()).topToBottom = R.id.passwordInputLayoutRegistration;
-            leftMaterialDivider.setVisibility(VISIBLE);
-            rightMaterialDivider.setVisibility(VISIBLE);
-            orTextView.setVisibility(VISIBLE);
-            googleSignInButton.setVisibility(VISIBLE);
         }
         else
+        {
+            if(GoogleSignIn.getLastSignedInAccount(registrationActivityContext) != null)
+                myApplication.getGoogleSignInClient().signOut();
             super.onBackPressed();
+        }
+
+    }
+
+    private boolean checkName()
+    {
+        boolean returnValue = true;
+        if(Objects.requireNonNull(editTextNameRegistrationActivity.getText()).length() == 0)
+        {
+            nameTextInputLayout.setError(getString(R.string.emptyName));
+            returnValue = false;
+        }
+        else
+            nameTextInputLayout.setError(null);
+       return returnValue;
+
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        if(GoogleSignIn.getLastSignedInAccount(registrationActivityContext) != null)
+            myApplication.getGoogleSignInClient().signOut();
     }
 
 }

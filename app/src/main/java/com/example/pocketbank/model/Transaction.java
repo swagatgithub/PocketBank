@@ -1,8 +1,6 @@
 package com.example.pocketbank.model;
-import java.util.Date;
 public class Transaction
 {
-
     int transactionId,userId;
     String recipient,type,description,date;
     double amount;
@@ -10,20 +8,7 @@ public class Transaction
     public Transaction() {
     }
 
-    public Transaction(int transactionId, int userId, String recipient, String type, String description, double amount, String date)
-    {
-        this.transactionId = transactionId;
-        this.userId = userId;
-        this.recipient = recipient;
-        this.type = type;
-        this.description = description;
-        this.amount = amount;
-        this.date = date;
-    }
 
-    public int getTransactionId() {
-        return transactionId;
-    }
 
     public void setTransactionId(int id) {
         this.transactionId = id;
@@ -77,17 +62,4 @@ public class Transaction
         return date;
     }
 
-    @Override
-    public String toString()
-    {
-        return "Transaction{" +
-                "id=" + transactionId +
-                ", userId=" + userId +
-                ", recipient='" + recipient + '\'' +
-                ", type='" + type + '\'' +
-                ", description='" + description + '\'' +
-                ", amount=" + amount +
-                ", date=" + date +
-                '}';
-    }
 }

@@ -1,331 +1,267 @@
 package com.example.pocketbank;
+
 import android.app.ActivityOptions;
 import android.content.ActivityNotFoundException;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.transition.ChangeBounds;
-import android.transition.ChangeClipBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.ChangeTransform;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.pocketbank.Dialogs.fabInducedDialog;
-import com.example.pocketbank.adapters.transactionAdapter;
 import com.example.pocketbank.authentication.Login;
-import com.example.pocketbank.bottomsheets.getPhotoBottomSheet;
+import com.example.pocketbank.Dialogs.getPhotoBottomSheet;
 import com.example.pocketbank.databinding.ActivityMainBinding;
-import com.example.pocketbank.model.Shopping;
-import com.example.pocketbank.model.Transaction;
+import com.example.pocketbank.fragments.homeFragment;
+import com.example.pocketbank.fragments.investmentFragment;
+import com.example.pocketbank.fragments.loanFragment;
+import com.example.pocketbank.fragments.statisticsFragment;
+import com.example.pocketbank.fragments.transactionFragment;
 import com.example.pocketbank.others.seeProfileImage;
-import com.example.pocketbank.shopping.addShopping;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
+import com.example.pocketbank.others.utils;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textview.MaterialTextView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
+
 public class MainActivity extends AppCompatActivity
 {
     private static final String TAG ="MainActivity";
-    private ActivityMainBinding activityMainBinding;
-    private com.example.pocketbank.utils utility;
-    private MainActivity mainActivity;
-    private TextView currentMoney,userName,userEmail;
-    private LineChart lineChart;
-    private BarChart barChart;
-    private RecyclerView recyclerView;
-    private ExecutorService executorServiceMainActivity;
-    private SQLiteDatabase readableDatabaseMainActivity;
-    private BottomNavigationView bottomNavigationView;
-    private MaterialToolbar toolbar;
-    private FloatingActionButton floatingActionButton;
-    private ArrayList<Transaction> transactionArrayList,profitableTransactions;
-    private ArrayList<Shopping> shoppingArrayList;
-    private transactionAdapter transactionAdapter;
-    private int currentYear,userId;
-    private Calendar calendar;
-    private BarDataSet barDataSet;
-    private BarData barData;
-    private AlertDialog.Builder builder;
-    private AlertDialog alertDialog;
+    private utils utility;
+    private MainActivity mainActivityContext;
+    private MaterialTextView userName,userEmail;
+    public ExecutorService executorServiceMainActivity;
+    public SQLiteDatabase readableDatabaseMainActivity;
+    public BottomNavigationView bottomNavigationView;
+    public MaterialToolbar toolbar;
+    private String email,name;
+    public int userId;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private getPhotoBottomSheet getPhotoBottomSheet;
     private ShapeableImageView userProfileImage,addPhotoIcon;
-    private View headerView;
     private ActivityResultLauncher<Intent> cropImage;
     private File userProfileImageFile,appImageDirectory,croppedImageFile;
     private Uri imageFileContentUri;
+    private MenuItem previousItem;
+    private boolean transactionFragment =false ,loanFragment = false , investmentFragment = false , statisticsFragment = false , homeFragment = false ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        System.out.println("onCreate...Main");
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
-        getWindow().setSharedElementExitTransition(new ChangeClipBounds());
-        mainActivity = this;
-        checkForUserExistence();
+
+        ActivityMainBinding activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        activityMainBinding.bottomNavigationView.setOnItemSelectedListener( item ->
+        {
+            if(item.getItemId() == R.id.home)
+            {
+                Log.v(TAG, "inside home part");
+                doNotSelect(previousItem);
+                toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_32);
+                toolbar.setTitle(R.string.app_name);
+                toolbar.setTag(getString(R.string.navigationDrawer));
+                previousItem = item;
+                item.setIcon(R.drawable.ic_baseline_home_24);
+                if(!homeFragment)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, homeFragment.class, null, "homeFragment").commit();
+                return true;
+            }
+            else if (item.getItemId() == R.id.investment)
+            {
+                doNotSelect(previousItem);
+                toolbar.setTitle(R.string.investments);
+                toolbar.setNavigationIcon(R.drawable.arrow_back_24);
+                toolbar.setTag(getString(R.string.backArrow));
+                previousItem = item;
+                item.setIcon(R.drawable.ic_baseline_currency_rupee_24);
+                if(!investmentFragment)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , investmentFragment.class , null ,"investmentFragment").addToBackStack(null).commit();
+                return true;
+            }
+            else if (item.getItemId() == R.id.loan)
+            {
+                doNotSelect(previousItem);
+                toolbar.setTitle(R.string.loan);
+                toolbar.setNavigationIcon(R.drawable.arrow_back_24);
+                toolbar.setTag(getString(R.string.backArrow));
+                previousItem = item;
+                item.setIcon(R.drawable.ic_baseline_event_available_24);
+                if(!loanFragment)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , loanFragment.class , null , "loanFragment" ).addToBackStack(null).commit();
+                return true;
+            }
+            else if(item.getItemId() == R.id.transactions)
+            {
+                doNotSelect(previousItem);
+                toolbar.setTitle(R.string.transactions);
+                toolbar.setNavigationIcon(R.drawable.arrow_back_24);
+                toolbar.setTag(getString(R.string.backArrow));
+                if(!transactionFragment)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , transactionFragment.class ,null , "transactionFragment").addToBackStack(null).commit();
+                previousItem = item;
+                item.setIcon(R.drawable.ic_baseline_swap_vert_24);
+                return true;
+            }
+            else
+            {
+                doNotSelect(previousItem);
+                toolbar.setTitle(R.string.statistics);
+                toolbar.setNavigationIcon(R.drawable.arrow_back_24);
+                toolbar.setTag(getString(R.string.backArrow));
+                if(!statisticsFragment)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , statisticsFragment.class ,null , "statisticsFragment").addToBackStack(null).commit();
+                previousItem = item;
+                item.setIcon(R.drawable.ic_baseline_trending_up_24);
+                return true;
+            }
+
+        });
+
+        setContentView(activityMainBinding.getRoot());
+
+        startInitialisation(activityMainBinding);
+
+        activityMainBinding.bottomNavigationView.setSelectedItemId(R.id.home);
+
     }
 
-    private void startInitialisation()
+    @Override
+    protected void onStart()
     {
-        calendar = Calendar.getInstance();
-        currentYear = myApplication.currentYear();
-        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        drawerLayout = activityMainBinding.mainActivityDrawerLayout;
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        currentMoney = activityMainBinding.currentMoney;
-        lineChart = activityMainBinding.profitChart;
-        barChart = activityMainBinding.barChart;
-        recyclerView = activityMainBinding.recyclerViewTrans;
-        navigationView = activityMainBinding.navigationView;
-        headerView = navigationView.getHeaderView(0);
-        userProfileImage = headerView.findViewById(R.id.yourPhoto);
-        addPhotoIcon = headerView.findViewById(R.id.addPhoto);
-        userName = headerView.findViewById(R.id.fullName);
-        userEmail = headerView.findViewById(R.id.email);
-        bottomNavigationView = activityMainBinding.bottomNavigationView;
-        toolbar = activityMainBinding.toolBar;
-        floatingActionButton = activityMainBinding.floatingActionButton;
-        getPhotoBottomSheet = new getPhotoBottomSheet();
-        executorServiceMainActivity = myApplication.getExecutorService();
-        readableDatabaseMainActivity = myApplication.readableDatabase;
-        bottomNavigationView.setSelectedItemId(R.id.home);
-        transactionArrayList = new ArrayList<>();
-        profitableTransactions = new ArrayList<>();
-        shoppingArrayList = new ArrayList<>();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        appImageDirectory = new File(getFilesDir() ,"appImages");
-        userProfileImageFile = new File(appImageDirectory, "userProfileImage.jpg");
-        croppedImageFile = new File(appImageDirectory,"croppedProfileImage.jpg");
-        imageFileContentUri = FileProvider.getUriForFile(mainActivity, "com.example.pocketbank.fileprovider", userProfileImageFile);
-        userId = utility.getUserFromSharedPreference().getUserId();
+        Log.v(TAG,"onStart() has been called..");
+        super.onStart();
         executeAllDbOperations();
-        setSupportActionBar(toolbar);
-        setListeners();
-        createDialog();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        Log.v(TAG , "onResume() has been called..");
+        super.onResume();
+        setValueToViews();
+    }
+
+    private void startInitialisation(ActivityMainBinding activityMainBinding)
+    {
+
+        mainActivityContext = this;
+
+        executorServiceMainActivity = myApplication.getExecutorService();
+
+        readableDatabaseMainActivity = myApplication.readableDatabase;
+
+        utility = new utils(this);
+
+        getPhotoBottomSheet = new getPhotoBottomSheet();
+
+        drawerLayout = activityMainBinding.mainActivityDrawerLayout;
+
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        navigationView = activityMainBinding.navigationView;
+
+        bottomNavigationView = activityMainBinding.bottomNavigationView;
+
+        toolbar = activityMainBinding.toolBar;
+
+        setSupportActionBar(activityMainBinding.toolBar);
+
+        View headerView = navigationView.getHeaderView(0);
+
+        userProfileImage = headerView.findViewById(R.id.yourPhoto);
+
+        addPhotoIcon = headerView.findViewById(R.id.addPhoto);
+
+        userName = headerView.findViewById(R.id.fullName);
+
+        userEmail = headerView.findViewById(R.id.email);
+
+        appImageDirectory = new File(getFilesDir() ,"appImages");
+
+        userProfileImageFile = new File(appImageDirectory, "userProfileImage.jpg");
+
+        croppedImageFile = new File(appImageDirectory,"croppedProfileImage.jpg");
+
+        imageFileContentUri = FileProvider.getUriForFile(mainActivityContext, "com.example.pocketBank.fileProvider", userProfileImageFile);
+
+        userId = utility.getUserFromSharedPreference().getUserId();
+
         registerActivityResults();
 
-    }
+        setListeners();
 
-    private void checkForUserExistence()
-    {
-        utility = new com.example.pocketbank.utils(mainActivity);
-        if(utility.getUserFromSharedPreference() != null)
-        {
-            Toast.makeText(mainActivity, "Welcome " + utility.getUserFromSharedPreference().getName(), Toast.LENGTH_SHORT).show();
-            startInitialisation();
-            setContentView( activityMainBinding.getRoot());
-        }
-        else
-        {
-            Intent intent = new Intent(mainActivity, Login.class);
-            startActivity(intent);
-            finish();
-        }
     }
 
     private void executeAllDbOperations()
     {
-        executorServiceMainActivity.execute(new Runnable()
+        executorServiceMainActivity.execute(() ->
         {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    Transaction transaction;
-                    Cursor cursor;
-                    cursor = readableDatabaseMainActivity.query("user",new String[]{"remainedAmount","email","name"},"userId=?",new String[]{String.valueOf(userId)},null,null,null);
-                    if(cursor.moveToFirst())
-                    {
-                        currentMoney.setText(String.valueOf(cursor.getDouble(cursor.getColumnIndexOrThrow("remainedAmount"))) + getString(R.string.rupees));
-                        userEmail.setText(cursor.getString(cursor.getColumnIndexOrThrow("email")));
-                        userName.setText(cursor.getString(cursor.getColumnIndexOrThrow("name")));
-                    }
-                    cursor = readableDatabaseMainActivity.query("transactions",null,"userId=?",new String[]{String.valueOf(userId)},null,null,"date desc");
-                    while(cursor.moveToNext())
-                    {
-                        transaction = new Transaction();
-                        transaction.setAmount(cursor.getDouble(cursor.getColumnIndexOrThrow("amount")));
-                        transaction.setTransactionId(cursor.getInt(cursor.getColumnIndexOrThrow("transactionId")));
-                        transaction.setUserId(cursor.getInt(cursor.getColumnIndexOrThrow("userId")));
-                        transaction.setDate(cursor.getString(cursor.getColumnIndexOrThrow("date")));
-                        transaction.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
-                        transaction.setRecipient(cursor.getString(cursor.getColumnIndexOrThrow("recipient")));
-                        transaction.setType(cursor.getString(cursor.getColumnIndexOrThrow("type")));
-                        transactionArrayList.add(transaction);
-                    }
-                    transactionAdapter = new transactionAdapter(transactionArrayList);
-                    recyclerView.setAdapter(transactionAdapter);
-                    cursor = readableDatabaseMainActivity.query("transactions",null,"userId=? AND type=?",new String[]{String.valueOf(userId),"profit"},null,null,null);
-                    while(cursor.moveToNext())
-                    {
-                        transaction = new Transaction();
-                        transaction.setTransactionId(cursor.getInt(cursor.getColumnIndexOrThrow("transactionId")));
-                        transaction.setUserId(userId);
-                        transaction.setType("profit");
-                        transaction.setRecipient(cursor.getString(cursor.getColumnIndexOrThrow("recipient")));
-                        transaction.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
-                        transaction.setAmount(cursor.getDouble(cursor.getColumnIndexOrThrow("amount")));
-                        transaction.setDate(cursor.getString(cursor.getColumnIndexOrThrow("date")));
-                        profitableTransactions.add(transaction);
-                    }
-                    if(profitableTransactions.size() != 0)
-                    {
-                        ArrayList<Entry> entries = new ArrayList<>();
-                        int transactionYear,month;
-                        boolean monthPresent;
-                        for(Transaction transaction1 : profitableTransactions)
-                        {
-                            calendar.setTime(myApplication.getSimpleDateFormat().parse(transaction1.getDate()));
-                            transactionYear = calendar.get(Calendar.YEAR);
-                            if (currentYear == transactionYear)
-                            {
-                                month = calendar.get(Calendar.MONTH) + 1;
-                                monthPresent = false;
-                                for(Entry entry : entries)
-                                {
-                                    if (entry.getX() == month)
-                                    {
-                                        entry.setY(entry.getY()+(float)transaction1.getAmount());
-                                        monthPresent=true;
-                                        break;
-                                    }
-                                }
-                                if (!monthPresent)
-                                {
-                                    Entry entry = new Entry();
-                                    entry.setX(month);
-                                    entry.setY((float) transaction1.getAmount());
-                                    entries.add(entry);
-                                }
-                            }
-                        }
-                        LineDataSet lineDataSet = new LineDataSet(entries,"Profit Chart");
-                        lineDataSet.setColor(Color.parseColor("#B54269"));
-                        lineDataSet.setCircleColor(Color.parseColor("#B54269"));
-                        lineDataSet.setHighLightColor(Color.parseColor("#B54269"));
-                        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-                        lineDataSet.setDrawFilled(true);
-                        LineData lineData = new LineData(lineDataSet);
-                        lineChart.setDescription(null);
-                        //lineChart.getXAxis().setSpaceMin(1);
-                        //lineChart.getXAxis().setSpaceMax(1);
-                        lineChart.getXAxis().setAxisMinimum(1);
-                        lineChart.getXAxis().setAxisMaximum(12);
-                        lineChart.getXAxis().setEnabled(false);
-                        lineChart.getAxisRight().setEnabled(false);
-                        lineChart.getAxisLeft().setDrawGridLines(false);
-                        lineChart.getAxisLeft().setAxisMinimum(1);
-                        lineChart.getAxisLeft().setAxisMaximum(200000);
-                        lineChart.getAxisLeft().setDrawZeroLine(true);
-                       // lineChart.getAxisLeft().setLabelCount(10);
-                       // lineChart.getAxisLeft().setGranularityEnabled(true);
-                        //lineChart.getAxisLeft().setGranularity(10);
+            try {
 
-                        lineChart.setData(lineData);
-                        lineChart.fitScreen();
-                    }
-                    cursor.close();
-                }
-                catch (Exception ee)
+                Cursor cursor = readableDatabaseMainActivity.query("user", new String[]{"email", "name"}, "userId=?", new String[]{String.valueOf(userId)}, null, null, null);
+
+                if (cursor.moveToFirst())
                 {
-                    ee.printStackTrace();
+                    email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+                    name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 }
+
+                cursor.close();
+
+                mainActivityContext.runOnUiThread(() ->
+                {
+                    userEmail.setText(email);
+                    userName.setText(name);
+                });
+
             }
+
+            catch (Exception ee)
+            {
+                ee.printStackTrace();
+                Log.e(TAG, "error has occurred");
+            }
+
         });
+
     }
 
     private void setListeners()
     {
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                boolean value = false;
-                if (item.getItemId() == R.id.loan) {
-                    Toast.makeText(getBaseContext(), "Loan Clicked", Toast.LENGTH_SHORT).show();
-                    value = true;
-                } else if (item.getItemId() == R.id.investment) {
-                    System.out.println("investment is called...");
-                    value = true;
-                } else if (item.getItemId() == R.id.home) {
-                    value = true;
-                } else if (item.getItemId() == R.id.transactions) {
-                    value = true;
-                } else if (item.getItemId() == R.id.statistics) {
-                    value = true;
-                }
-                return value;
-            }
-        });
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener()
+        toolbar.setNavigationOnClickListener( (v) ->
         {
-            @Override
-            public void onClick(View view)
-            {
-                DialogFragment dialogFragment = new fabInducedDialog();
-                dialogFragment.show(getSupportFragmentManager(), "Floating Dialog..");
-            }
+            if(toolbar.getTag().equals(getString(R.string.backArrow)))
+                onBackPressed();
+            else
+                drawerLayout.openDrawer(GravityCompat.START);
 
         });
-        toolbar.setNavigationOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
+        navigationView.setNavigationItemSelectedListener(item ->
         {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item)
-            {
-                if (item.getItemId() == R.id.signOut) {
-                    alertDialog.show();
-                } else if (item.getItemId() == R.id.share)
+                if (item.getItemId() == R.id.signOut)
+                    showDialog();
+                else if (item.getItemId() == R.id.share)
                 {
                     String githubLink = getString(R.string.sendingText) + "";
                     Intent implicitIntent = new Intent();
@@ -335,100 +271,123 @@ public class MainActivity extends AppCompatActivity
                     try {
                         startActivity(implicitIntent);
                     } catch (ActivityNotFoundException activityNotFoundException) {
-                        Toast.makeText(mainActivity, getString(R.string.noAppFound), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mainActivityContext, getString(R.string.noAppFound), Toast.LENGTH_SHORT).show();
                         activityNotFoundException.printStackTrace();
                     }
                 }
+
                 return true;
-            }
+
         });
 
-        userProfileImage.setOnClickListener(new View.OnClickListener()
+        userProfileImage.setOnClickListener(v ->
         {
-            @Override
-            public void onClick(View v)
-            {
                 if(!croppedImageFile.exists())
                 {
                     getPhotoBottomSheet.show(getSupportFragmentManager(), "Bottom Sheet");
                 }
                 else
                 {
-                    Intent intent = new Intent(mainActivity,seeProfileImage.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mainActivity, userProfileImage, "profilePic");
-                    intent.putExtra("imageFile",FileProvider.getUriForFile(mainActivity, "com.example.pocketbank.fileprovider",croppedImageFile));
+                    Intent intent = new Intent(mainActivityContext,seeProfileImage.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mainActivityContext, userProfileImage, "profilePic");
+                    intent.putExtra("imageFile",FileProvider.getUriForFile(mainActivityContext, "com.example.pocketBank.fileProvider",croppedImageFile));
                     startActivity(intent,options.toBundle());
                 }
 
-            }
-
         });
 
-        addPhotoIcon.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                getPhotoBottomSheet.show(getSupportFragmentManager(),"Bottom Sheet");
-            }
-        });
-
-        activityMainBinding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mainActivity, addShopping.class));
-            }
-        });
+        addPhotoIcon.setOnClickListener( v -> getPhotoBottomSheet.show(getSupportFragmentManager(),"Bottom Sheet"));
 
     }
 
-    private void createDialog()
+    private void doNotSelect(MenuItem previousItem)
     {
-        builder = new AlertDialog.Builder(mainActivity);
-        builder.setCustomTitle(getLayoutInflater().inflate(R.layout.customtitle,null));
-        builder.setMessage("Are You Sure Want To Log Out?.");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+        if (previousItem != null)
+        {
+            if (previousItem.getItemId() == R.id.loan)
+                previousItem.setIcon(R.drawable.ic_outline_event_available_24);
+            else if (previousItem.getItemId() == R.id.transactions)
+                previousItem.setIcon(R.drawable.ic_outline_swap_vert_24);
+            else if (previousItem.getItemId() == R.id.investment)
+                previousItem.setIcon(R.drawable.ic_outline_currency_rupee_24);
+            else if (previousItem.getItemId() == R.id.home)
+                previousItem.setIcon(R.drawable.ic_outline_home_24);
+            else
+                previousItem.setIcon(R.drawable.ic_outline_trending_up_24);
+        }
+
+    }
+
+    private void showDialog()
+    {
+        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(mainActivityContext);
+        materialAlertDialogBuilder.setTitle("Are You Sure Want To Log Out?.");
+        materialAlertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                startActivity(new Intent(MainActivity.this, Login.class));
+                if(GoogleSignIn.getLastSignedInAccount(mainActivityContext) != null)
+                {
+                     myApplication.getGoogleSignInClient().signOut().addOnCompleteListener(mainActivityContext, task -> {
+                         System.out.println("Inside This..");
+                         signOut();
+                     });
+                }
+                else
+                    signOut();
+            }
+
+            private void signOut()
+            {
+                startActivity(new Intent(mainActivityContext, Login.class));
                 utility.signOutUser();
                 finish();
             }
+
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        alertDialog = builder.create();
+
+        materialAlertDialogBuilder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+
+        materialAlertDialogBuilder.show();
+
     }
 
     private void registerActivityResults()
     {
-        cropImage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>()
+        cropImage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
         {
-            @Override
-            public void onActivityResult(ActivityResult result)
+            CropImage.ActivityResult croppedImage = CropImage.getActivityResult(result.getData());
+            if (result.getResultCode() == RESULT_OK)
             {
-                CropImage.ActivityResult croppedImage = CropImage.getActivityResult(result.getData());
-                if (result.getResultCode() == RESULT_OK)
+                Uri resultUri = Objects.requireNonNull(croppedImage).getUri();
+                userProfileImage.setImageURI(resultUri);
+                if(!appImageDirectory.exists())
                 {
-                    Uri resultUri = croppedImage.getUri();
-                    userProfileImage.setImageURI(resultUri);
-                    Toast.makeText(mainActivity,R.string.profilePhotoUpdated,Toast.LENGTH_SHORT).show();
-                    File returnImageFile = new File(getCacheDir(),resultUri.getLastPathSegment());
-                    returnImageFile.renameTo(croppedImageFile);
-                    userProfileImageFile.delete();
+                    boolean created = appImageDirectory.mkdir();
+                    Log.v(TAG , Boolean.toString(created));
                 }
-                else if (result.getResultCode() == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE)
-                {
-                    Exception error = croppedImage.getError();
-                    error.printStackTrace();
-                }
+
+                Toast.makeText(mainActivityContext,R.string.profilePhotoUpdated,Toast.LENGTH_SHORT).show();
+
+                File returnImageFile = new File(getCacheDir(),resultUri.getLastPathSegment());
+
+                boolean renameValue = returnImageFile.renameTo(croppedImageFile);
+
+                Log.v("MainActivity" , Boolean.toString(renameValue));
+
+                if(userProfileImageFile.delete())
+                    Log.v(TAG , "userProfileImageDeletedSuccessfully");
             }
+            else if (result.getResultCode() == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE)
+            {
+                Exception error = Objects.requireNonNull(croppedImage).getError();
+                error.printStackTrace();
+            }
+
         });
+
     }
 
     public Uri getUri()
@@ -439,8 +398,10 @@ public class MainActivity extends AppCompatActivity
         {
             try
             {
-                appImageDirectory.mkdir();
-                userProfileImageFile.createNewFile();
+                boolean directoryCreated = appImageDirectory.mkdir();
+                boolean fileCreated = userProfileImageFile.createNewFile();
+                Log.v(TAG , Boolean.toString(directoryCreated));
+                Log.v(TAG , Boolean.toString(fileCreated));
                 return imageFileContentUri;
             }
             catch (Exception ee)
@@ -449,6 +410,7 @@ public class MainActivity extends AppCompatActivity
                 return null;
             }
         }
+
     }
 
     public ShapeableImageView getUserProfileImage()
@@ -471,21 +433,48 @@ public class MainActivity extends AppCompatActivity
         return croppedImageFile;
     }
 
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        setValueToViews();
-    }
-
     private void setValueToViews()
     {
-        if(croppedImageFile.exists())
-            userProfileImage.setImageURI(FileProvider.getUriForFile(mainActivity, "com.example.pocketbank.fileprovider",croppedImageFile));
+        if (croppedImageFile.exists())
+            userProfileImage.setImageURI(FileProvider.getUriForFile(mainActivityContext, "com.example.pocketBank.fileProvider", croppedImageFile));
     }
 
     public void deleteFile()
     {
-        croppedImageFile.delete();
+        boolean deleted = croppedImageFile.delete();
+        Log.v(TAG ,Boolean.toString(deleted));
     }
+
+    @Override
+    public void onBackPressed()
+    {
+            if(getSupportFragmentManager().getBackStackEntryCount() > 0)
+            {
+                if(getSupportFragmentManager().popBackStackImmediate()) {
+                    if (Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "transactionFragment")) {
+                        transactionFragment = true ;
+                        bottomNavigationView.setSelectedItemId(R.id.transactions);
+                    }
+                    else if(  Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "loanFragment") ) {
+                        loanFragment = true ;
+                        bottomNavigationView.setSelectedItemId(R.id.loan);
+                    }
+                    else if( Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "investmentFragment")) {
+                        investmentFragment = true ;
+                        bottomNavigationView.setSelectedItemId(R.id.investment);
+                    }
+                    else if( Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "statisticsFragment")) {
+                        statisticsFragment = true ;
+                        bottomNavigationView.setSelectedItemId(R.id.statistics);
+                    }
+                    else {
+                        homeFragment = true ;
+                        bottomNavigationView.setSelectedItemId(R.id.home);
+                    }
+                }
+            }
+            else
+                super.onBackPressed();
+    }
+
 }

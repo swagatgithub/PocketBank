@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/91917/.gradle/caches/transforms-3/5ed36ac7046999853e5efb1baaa92135/transformed/appcompat-1.4.0/res/drawable/abc_item_background_holo_light.xml" value="0.1335" />
+        <entry key="..\:/Users/91917/.gradle/caches/transforms-3/f964d49b5991988bd734ab96e11aa9b0/transformed/material-1.6.0-alpha02/res/drawable/mtrl_dialog_background.xml" value="0.166" />
         <entry key="..\:/Users/91917/.gradle/caches/transforms-3/f964d49b5991988bd734ab96e11aa9b0/transformed/material-1.6.0-alpha02/res/drawable/mtrl_ic_error.xml" value="0.1405" />
         <entry key="..\:/Users/91917/AndroidStudioProjects/PocketBank/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/91917/AndroidStudioProjects/PocketBank/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19166666666666668" />
@@ -11,52 +12,162 @@
         <entry key="..\:/Users/91917/AndroidStudioProjects/PocketBank/app/src/main/res/layout/activity_main.xml" value="0.1375" />
         <entry key="..\:/Users/91917/AndroidStudioProjects/PocketBank/app/src/main/res/layout/activity_registration.xml" value="0.1375" />
         <entry key="..\:/Users/91917/AndroidStudioProjects/PocketBank/app/src/main/res/menu/bottomnavviewelements.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/91917/AppData/Local/Android/Sdk/platforms/android-31/data/res/drawable/ic_check_circle_24px.xml" value="0.1095" />
         <entry key="..\:/Users/91917/AppData/Local/Android/Sdk/platforms/android-31/data/res/drawable/ic_doc_font.xml" value="0.1345" />
-        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/add_24.xml" value="0.1295" />
+        <entry key="..\:/Users/91917/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/activity_list_item.xml" value="0.1013157894736842" />
+        <entry key="..\:/Users/91917/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/auto_complete_list.xml" value="0.10555555555555556" />
+        <entry key="..\:/Users/91917/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/browser_link_context_header.xml" value="0.1013157894736842" />
+        <entry key="..\:/Users/91917/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/expandable_list_content.xml" value="0.2" />
+        <entry key="..\:/Users/91917/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/list_content.xml" value="0.1013157894736842" />
+        <entry key="..\:/Users/91917/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/preference_category.xml" value="0.1013157894736842" />
+        <entry key="..\:/Users/91917/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/select_dialog_item.xml" value="0.1013157894736842" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/add_24.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/app_logo.xml" value="0.102" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/arrow_back_24.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/books_100.xml" value="0.1125" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/camera_background.xml" value="0.1295" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/cooking_oil.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/cookingoil_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/dark_grey_arrow_right_24.xml" value="0.12" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/edittextbackgrounddrawable.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/edittextcursor.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/fashion_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/fruit_100.xml" value="0.1125" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/gallery_white.xml" value="0.1295" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/grooming_100.xml" value="0.1125" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.1295" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_arrow_back_48.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_arrow_back_8.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.1675" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_28.xml" value="0.1675" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_camera_48.xml" value="0.1295" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_camera_56.xml" value="0.1335" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_camera_80.xml" value="0.1295" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_check_4.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_check_8.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_check_circle_40.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_circle_100.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_circle_24.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_circle_32.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_circle_40.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_currency_rupee_24.xml" value="0.165" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_currency_rupee_4.xml" value="0.102" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_date_range_24.xml" value="0.166" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_event_available_24.xml" value="0.144" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1245" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_28.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_32.xml" value="0.1675" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_48.xml" value="0.1675" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_keyboard_backspace_8.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_lock_open_24.xml" value="0.1675" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1295" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_menu_32.xml" value="0.12" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_photo_camera_24.xml" value="0.1295" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_photo_camera_dark_blue.xml" value="0.165" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_photo_camera_darkblue.xml" value="0.1295" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_photo_camera_white.xml" value="0.1295" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_price_check_24.xml" value="0.1005" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_search_28.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_show_chart_24.xml" value="0.102" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_baseline_square_100.xml" value="0.102" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_books.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_books_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_dairyproducts.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_dairyproducts_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_fashion.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_fashion_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_fruits.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_fruits_100.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_grooming.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_grooming_100.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_homeappliances.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_homeappliances_100.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_homegroceries.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_homegroceries_100.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_icons8_google.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_icons8_google_48.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_india_24.xml" value="0.1245" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_launcher_background.xml" value="0.135" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_meat.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_medicine_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_oliveoil_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_outline_account_circle_24_outline.xml" value="0.165" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_outline_event_available_24.xml" value="0.1245" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_outline_home_24.xml" value="0.165" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_outline_swap_vert_24.xml" value="0.1245" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_petproducts.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_petproducts_100.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_petproducts_110.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_petproducts_50.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_rupee.xml" value="0.1245" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_vegetables.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_vegetables_100.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/ic_vegetables_90.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/investment.xml" value="0.104" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/item_selected.xml" value="0.163" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/item_selected_background.xml" value="0.163" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/line_shape_drawable.xml" value="0.1675" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/loan.xml" value="0.104" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/meat_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/milk_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/pet_product.xml" value="0.2195" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/photo_library_24_dark_blue.xml" value="0.183" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/rectangle_shape_drawable.xml" value="0.1675" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/rupee_with_background.xml" value="0.16" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/send_receive.xml" value="0.104" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/share.xml" value="0.12" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/shop_cart.xml" value="0.104" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/snacks.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/snacks_100.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/statistics.xml" value="0.1245" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/stats_24.xml" value="0.1345" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/textview_background.xml" value="0.1675" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/textview_ripple.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/tick.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/toolbar_background.xml" value="0.1375" />
-        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_add_shopping.xml" value="0.264" />
-        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_bar_chart.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/toys.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/toys_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/vegetables.xml" value="0.113" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/drawable/vegetables_100.xml" value="0.1125" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_add_investment.xml" value="0.19572649572649573" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_add_loan.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_add_shopping.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_add_transfer.xml" value="0.1841880341880342" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_bar_chart.xml" value="0.2" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_choose_item.xml" value="0.16" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_forgot_details.xml" value="0.264" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_give_your_email_or_telephone.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_registration.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_see_profile_image.xml" value="0.16" />
-        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/customdialog.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/activity_spalash.xml" value="0.4" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/autocompletetextviewitemlayout.xml" value="0.1" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/content_launcher.xml" value="0.19273504273504274" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/customdialog.xml" value="0.264" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/customtitle.xml" value="0.264" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/forgot_details_recyclerview_elements.xml" value="0.1859375" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/fragment_home.xml" value="0.18162393162393162" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/fragment_investment.xml" value="0.2" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/fragment_loan.xml" value="0.16" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/fragment_statistics.xml" value="0.19572649572649573" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/fragment_transaction.xml" value="0.2" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/getphotobottomsheet.xml" value="0.176" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/investment_layout.xml" value="0.176" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/item_rec_element_layout.xml" value="0.264" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/loan_adapter_layout.xml" value="0.19572649572649573" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/nav_drawer_header.xml" value="0.20555555555555555" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/navdrawerheader.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/registration_activity_first_screen.xml" value="0.1" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/registration_activity_second_screen.xml" value="0.1506578947368421" />
-        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/transactionslayout.xml" value="0.128" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/layout/transactionslayout.xml" value="0.2" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/menu/bottom_nav_view_elements.xml" value="0.16455696202531644" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/menu/bottomnavviewelements.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/menu/nav_drawer_menu.xml" value="0.19273504273504274" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/menu/navdrawer_menu.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/menu/toolbar_menu.xml" value="0.2" />
         <entry key="..\:/Users/91917/Desktop/PocketBank/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />

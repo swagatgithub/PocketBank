@@ -29,7 +29,7 @@
     <string name="notRegisteredEmail">This Email Is Not Registered.</string>
     <string name="notRegisteredPassword">This Password Is Not Registered.</string>
     <string name="stats">Stats</string>
-    <string name="Trans">Trans</string>
+    <string name="Trans">Transactions</string>
     <string name="home">Home</string>
     <string name="loan">Loans</string>
     <string name="Investment">Invests</string>
@@ -37,9 +37,10 @@
     <string name="shopping">Shopping</string>
     <string name="shoppingImage">shoppingImage</string>
     <string name="sendReceive">Send/Receive</string>
-    <string name="addTransactions">Add Transactions</string>
+
     <string name="dismiss">Dismiss</string>
     <string name="amount">+ 1500</string>
+    <string name="Amount">Amount</string>
     <string name="description">Description</string>
     <string name="currentDate">Current Date</string>
 
@@ -47,7 +48,7 @@
     <string name="transactionId">transactionId</string>
     <string name="shoppingChart">Shopping Chart</string>
     <string name="shareImage">Share Image</string>
-    <string name="rupees">Rs</string>
+    <string name="rupees">%.1f Rs</string>
     <string name="moneySpent">Money Spent</string>
     <string name="recordExpenditure">Highest Single Day Record</string>
     <string name="information">Information</string>
@@ -58,7 +59,7 @@
     <string name="sendingText">Check My New Application Here..</string>
     <string name="noAppFound">No Application Found To Complete The Action..</string>
     <string name="addShopping">Add Shopping</string>
-    <string name="pickItem">PICK ITEM</string>
+    <string name="pickItem">Pick Item</string>
     <string name="enterDate">Enter Date</string>
     <string name="selectDate">Select Date</string>
     <string name="store">Store</string>
@@ -109,7 +110,7 @@
     <string name="get">Get</string>
     <string name="enterValidEmailOrPhone">Invalid mobile number or email address</string>
     <string name="thisIsYour">"This is your "</string>
-    <string name="emptyName">Empty Name</string>
+    <string name="emptyName">Please enter your name</string>
     <string name="onCreate">onCreate() called</string>
     <string name="atLeastUpperCase">Please enter at least one upper case letter</string>
     <string name="atLeastLowerCase">Please enter at least one lower case letter</string>
@@ -125,17 +126,126 @@
     <string name="wrongEmail">Email address is not valid</string>
     <string name="removeWhiteSpace">Please remove white space</string>
     <string name="emptyString" />
-    <string name="agreeAndJoin"><![CDATA[Agree & Join]]></string>
+    <string name="Join">Join</string>
     <string name="incorrectEmail">Hmm, that\'s not the right email.Please try again or use Forgot Credentials.</string>
     <string name="incorrectPassword">Hmm, that\'s not the right password.Please try again or use Forgot Credentials.</string>
     <string name="incorrectLoginDetails">Hmm, that\'s not the right email and password combo.Please try again or use Forgot Credentials.</string>
 
     <string name="okay">Okay</string>
 
-    <string name="invalidUser">User details doesn\'t exists.Please Join PocketBank.</string>
+    <string name="invalidUser">User details does not exist.Please Join PocketBank.</string>
 
     <string name="notYou">Not you?</string>
 
     <string name="oneUserAllowed">We are allowing only one user per mobile,please login with your existing credential or uninstall the application to continue with your new credentials.</string>
+    <string name="chooseTheItemYouShopped">Choose the item you shopped.</string>
+    <string name="search">Search</string>
+    <string name="petProducts">Pet Products</string>
+    <string name="vegetables">Vegetables</string>
+    <string name="fruits">Fruits</string>
+    <string name="medicines">Medicines</string>
+    <string name="fashion">Fashion</string>
+    <string name="grooming">Grooming</string>
+    <string name="books">Books</string>
+    <string name="toys">Toys</string>
+    <string name="cookingOil">Cooking Oil</string>
+    <string name="milkProducts">Milk Products</string>
+    <string name="meat">Meat</string>
+    <string name="snacks">Snacks</string>
+    <string name="ayurVedicProducts">Ayurveda</string>
+    <string name="Groceries">Grocery</string>
+    <string name="Appliances">Appliances</string>
+    <string name="done">Done</string>
+    <string name="jewellery">Jewellery</string>
+    <string name="tools">Tools</string>
+    <string name="fitness">Fitness</string>
+    <string name="searchQuery">Search query</string>
+    <string name="findItemYouHaveShopped">Find the item you shopped.</string>
+    <string name="addItem">Add Item</string>
+    <string name="pleaseSelectADate">Please Select A Date</string>
+    <string name="pleaseEnterStoreInfo">Please enter store information</string>
+    <string name="pleaseHaveADescription">Please have a description</string>
+    <string name="pleaseEnterPrice">Please enter price</string>
+    <string name="itemAdded">Item Added Successfully</string>
+    <string name="dateFormat">Enter date in the form of YYYY-MM-DD.</string>
+    <string name="loanImage">LoanImage</string>
+    <string name="sendAndReceiveImage">Send And Receive Image</string>
+    <string name="availableBalance">Available Balance :</string>
+    <string name="positiveAmount">PositiveAmount</string>
+    <string name="title_activity_launcher">launcher</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="Transactions">Trans</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="investmentName">Investment Name</string>
+    <string name="investmentNameColon">Investment Name:</string>
+    <string name="initialAmount">Initial Amount</string>
+    <string name="monthlyROI">Monthly ROI:</string>
+    <string name="initialDate">Initial Date</string>
+    <string name="finishDate">Finish Date:</string>
+    <string name="addInvestment">Add Investment</string>
+    <string name="investmentFragment">InvestmentFragment</string>
+    <string name="backArrow">backArrow</string>
+    <string name="navigationDrawer">navigationDrawer</string>
+    <string name="percentageSymbol">%</string>
+    <string name="pressBackAgain">Please click BACK again to exit</string>
+    <string name="investmentNameError">please enter the investment name</string>
+    <string name="initialAmountError">please enter initial amount.</string>
+    <string name="monthlyROIError">please enter monthly ROI.</string>
+    <string name="initialDateError">"please enter initial  date "</string>
+    <string name="finishDateError">please enter finish date.</string>
+    <string name="selectInitialDate">Select Initial Date</string>
+    <string name="selectFinalDate">Select Finish Date</string>
+    <string name="investment">Investment</string>
+    <string name="investmentAddedSuccessfully">Investment Added Successfully</string>
+    <string name="investmentProfit">Investment Profit</string>
+    <string name="profit">Profit</string>
+    <string name="investments">Investments</string>
+    <string name="amountInvestedColon">Amount Invested:</string>
+    <string name="investmentStartDateColon">Start Date:</string>
+    <string name="investmentCloseDataColon">Close Date:</string>
+    <string name="rateOfInterestColon">Monthly ROI:</string>
+    <string name="calculatedProfit">Calculated Profit:</string>
+    <string name="recipient">Recipient</string>
+    <string name="date">Date</string>
+    <string name="receive">Receive</string>
+    <string name="addTransfer">Add Transfer</string>
+    <string name="invalidAmount">Please enter the amount.</string>
+    <string name="invalidRecipient">Please add recipient</string>
+    <string name="selectTransferDate">Select Transfer Date</string>
+    <string name="loanType">Loan Type:</string>
+    <string name="monthlyPayment">Monthly Payment:</string>
+    <string name="addLoan">Add Loan</string>
+    <string name="pleaseEnterLoanName">Please enter loan type</string>
+    <string name="monthlyPaymentError">Please enter monthly payment</string>
+    <string name="loanAddedSuccessfully">Loan Added Successfully</string>
+    <string name="lenderName">Lender Name:</string>
+    <string name="lenderNameError">Please enter lender name </string>
+    <string name="loanAmount">Loan Amount:</string>
+    <string name="calculatedLoss">Calculated Loss:</string>
+
+    <string name="filters">Filters</string>
+
+    <string name="all">All</string>
+
+    <string name="loanPayment">Loan Payment</string>
+
+    <string name="showTransactionMoreThan">Show Transaction More Than.</string>
+
+    <string name="show">Show</string>
+
+    <string name="transactions">Transactions</string>
+
+    <string name="nothingToShow">No Transactions To Show</string>
+    <string name="enterAmount">Enter Amount Here</string>
+    <string name="pleaseEnterAmount">Please Enter Amount</string>
+    <string name="statistics">Statistics</string>
 
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/firstDrawable" android:drawable="@drawable/ic_baseline_circle_40" />
+
+    <item android:id="@+id/secondDrawable" android:drawable="@drawable/ic_baseline_check_circle_40"/>
+
+</layer-list>

@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider"
+        android:layout_width="60dp"
+        android:layout_height="3dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:dividerColor="@color/darkGrey"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/profilePhoto"
@@ -14,9 +24,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        app:fontFamily="sans-serif-medium"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/delete"
@@ -59,9 +69,10 @@
         app:layout_constraintLeft_toLeftOf="@+id/delete"
         app:layout_constraintRight_toRightOf="@+id/delete"
         app:layout_constraintTop_toBottomOf="@+id/delete"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/delete"
         android:gravity="center"
-         />
+        android:layout_marginBottom="5dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/galleyText"
@@ -70,8 +81,10 @@
         app:layout_constraintLeft_toLeftOf="@+id/gallery"
         app:layout_constraintRight_toRightOf="@+id/gallery"
         app:layout_constraintTop_toBottomOf="@+id/gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/gallery"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_marginBottom="5dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/cameraText"
@@ -80,7 +93,9 @@
         app:layout_constraintLeft_toLeftOf="@+id/camera"
         app:layout_constraintRight_toRightOf="@+id/camera"
         app:layout_constraintTop_toBottomOf="@+id/camera"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/camera"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_marginBottom="5dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

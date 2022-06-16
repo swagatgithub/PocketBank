@@ -1,56 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+
     <color name="black">#000000</color>
+
     <color name="mustardYellow">#FF9800</color>
-    <color name="oceanBlue">#147ED3</color>
+
     <color name="Red">#D50000</color>
 
-    <color name="darkBlue">#1f306d</color>
-    <color name="light_darkBlue">#90969B</color>
-    <color name="light_oceanBlue">#C5CFD1</color>
-    <color name="orange">#E23B06</color>
     <color name="green">#489706</color>
-    <color name="pink">#B54269</color>
-    <color name="lightPink">#D599AE</color>
-    <color name="highPink">#E80C57</color>
-    <color name="light_blue">#00BCD4</color>
 
     <color name="grey">#BCB8B8</color>
+
     <color name="darkGrey">#686868</color>
+
     <color name="lightGrey">#E8E7E7</color>
+
     <color name="steelGray">#71797E</color>
+
     <color name="lightestGray">#E8E7E7</color>
+
+    <color name="kellyGreen">#4CBB17</color>
 
     <color name="offWhite">#f5f5f5</color>
 
-    <!--#0B0633-->
-
     <color name="aubergine">#4A154B</color>
 
-    <color name="aubergineY">#830383</color>
-    <color name="aubergineg">#66023c</color>
-    <color name="auberginegg">#702963</color>
-
-    <color name="madriGrasColor">#880085</color>
-
-    <color name="lipstickShade">#8e4785</color>
-
-    <color name="affairShade">#6f4685</color>
-
     <color name="russianViolet">#3F0F3F</color>
-    <color name="deeprussianViolet">#3A0B3A</color>
+
     <color name="lightAubergine">#4D284E</color>
+
     <color name="lightestAubergine">#E0BBE1</color>
 
     <color name="white">#ffffff</color>
 
     <color name="ghostWhite">#f8f8ff</color>
-
-
 
 </resources>

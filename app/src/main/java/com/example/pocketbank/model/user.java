@@ -1,6 +1,8 @@
 package com.example.pocketbank.model;
+
 public class user
 {
+
     private int userId;
     private String password;
     private String email;
@@ -22,10 +24,6 @@ public class user
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public void setAddress(String address) {

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lenderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/lenderName"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dataForLenderName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/lenderName"
+            app:layout_constraintTop_toTopOf="@id/lenderName"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/lenderName"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/loanType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/lenderName"
+            app:layout_constraintTop_toBottomOf="@id/lenderName"
+            android:layout_marginTop="15dp"
+            android:text="@string/loanType"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dataForLoanType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/loanType"
+            app:layout_constraintTop_toTopOf="@id/loanType"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/loanType"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/loanAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/loanType"
+            app:layout_constraintTop_toBottomOf="@id/loanType"
+            android:text="@string/loanAmount"
+            android:layout_marginTop="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dataForLoanAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/loanAmount"
+            app:layout_constraintTop_toTopOf="@id/loanAmount"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/loanAmount"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/monthlyPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/loanAmount"
+            app:layout_constraintTop_toBottomOf="@id/loanAmount"
+            android:text="@string/monthlyPayment"
+            android:layout_marginTop="10dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dataForMonthlyPayment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/monthlyPayment"
+            app:layout_constraintTop_toTopOf="@id/monthlyPayment"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/monthlyPayment"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/monthlyROI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/monthlyPayment"
+            app:layout_constraintTop_toBottomOf="@id/monthlyPayment"
+            android:text="@string/monthlyROI"
+            android:layout_marginTop="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dataForMonthlyROI"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/monthlyROI"
+            app:layout_constraintTop_toTopOf="@id/monthlyROI"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/monthlyROI"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/monthlyROI"
+            app:layout_constraintTop_toBottomOf="@id/monthlyROI"
+            android:text="@string/investmentStartDateColon"
+            android:layout_marginTop="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dataForStartDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/startDate"
+            app:layout_constraintTop_toTopOf="@id/startDate"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/startDate"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/finishDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/startDate"
+            app:layout_constraintTop_toBottomOf="@id/startDate"
+            android:text="@string/finishDate"
+            android:layout_marginTop="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dataForFinishDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/finishDate"
+            app:layout_constraintTop_toTopOf="@id/finishDate"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/finishDate"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/calculatedLoss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/finishDate"
+            app:layout_constraintTop_toBottomOf="@id/finishDate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/calculatedLoss"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dataForCalculatedLoss"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/calculatedLoss"
+            app:layout_constraintTop_toTopOf="@id/calculatedLoss"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/calculatedLoss"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,7 +1,5 @@
 package com.example.pocketbank.authentication;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,121 +21,102 @@ import com.example.pocketbank.databinding.ActivityLoginBinding;
 import com.example.pocketbank.model.user;
 import com.example.pocketbank.myApplication;
 import com.example.pocketbank.others.forgotDetails;
-import com.example.pocketbank.utils;
+import com.example.pocketbank.others.utils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.Gson;
+
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 
 public class Login extends AppCompatActivity
 {
+
     private static final String tag = "LoginActivity";
-    private TextInputEditText emailInput,passwordInput;
+    private TextInputEditText emailInput, passwordInput;
     private MaterialButton loginButton, googleLoginButton;
     private ActivityLoginBinding activityLoginBinding;
     private ExecutorService loginExecutorService;
     private SQLiteDatabase loginReadableDatabase;
-    private MaterialTextView register,helperText;
+    private MaterialTextView register, helperText;
     private TextInputLayout emailTextInputLayout, passwordTextInputLayout;
-    private Login loginContext;
-    private GoogleSignInClient googleSignInClient;
+    private static Login loginContext;
+    private GoogleSignInClient googleSignInClientLoginActivity;
     private ActivityResultLauncher<Intent> signInWithGoogle;
     private user user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
-        Log.v(tag,getString(R.string.onCreate));
+        Log.v(tag, getString(R.string.onCreate));
         super.onCreate(savedInstanceState);
-
         loginContext = this;
-
         activityLoginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
-
         setContentView(activityLoginBinding.getRoot());
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestProfile()
-                .requestId()
-                .requestIdToken("null")
-                .build();
-
-        googleSignInClient = GoogleSignIn.getClient(loginContext,gso);
+        googleSignInClientLoginActivity = myApplication.getGoogleSignInClient();
 
         signInWithGoogle = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>()
         {
+
             @Override
             public void onActivityResult(ActivityResult result)
             {
-                if(result.getResultCode() == Activity.RESULT_OK)
-                {
                     try
                     {
                         GoogleSignInAccount account = GoogleSignIn.getSignedInAccountFromIntent(result.getData()).getResult(ApiException.class);
-                        //handleGoogleSignInButtonClick(account);
-                        System.out.println("getId is "+account.getId());
-                        System.out.println("getIdToken is "+account.getIdToken());
-                        System.out.println("photUri is "+account.getPhotoUrl());
+                        handleGoogleSignInButtonClick(account);
                     }
                     catch (ApiException ee)
                     {
-                        System.out.println("Inside Exception..");
-                        Toast.makeText(loginContext,GoogleSignInStatusCodes.getStatusCodeString(ee.getStatusCode()),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(loginContext, GoogleSignInStatusCodes.getStatusCodeString(ee.getStatusCode()), Toast.LENGTH_SHORT).show();
                         ee.printStackTrace();
                     }
-                }
+               // }
+               // else
+                    System.out.println("inside else part of Result..");
             }
-
             private void handleGoogleSignInButtonClick(GoogleSignInAccount account)
             {
-                if(helperText.getVisibility() == View.GONE)
+                System.out.println("handleGoogleSignInButtonClick..");
+                if (helperText.getVisibility() == View.GONE)
                 {
                     Intent intent = new Intent(loginContext, Registration.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name",account.getDisplayName());
-                    bundle.putString("email",account.getEmail());
-                    bundle.putString("photoUri", Objects.requireNonNull(account.getPhotoUrl()).toString());
-                    intent.putExtra("signInWithGoogle",bundle);
+                    intent.putExtra("name", account.getDisplayName());
+                    intent.putExtra("email", account.getEmail());
+                    intent.putExtra("signInWithGoogle", true);
                     startActivity(intent);
                 }
                 else
                 {
-                    if(user.getEmail().equals(account.getEmail()))
+                    if (user.getEmail().equals(account.getEmail()))
                         rightCredentialFollowUp();
                     else
-                        dialogIt(R.string.oneUserAllowed);
+                    {
+                        myApplication.dialogIt(R.string.oneUserAllowed, loginContext);
+                        googleSignInClientLoginActivity.signOut();
+                    }
                 }
             }
 
         });
-
     }
 
     @Override
     protected void onStart()
     {
         super.onStart();
-        Log.v(tag,"onStart() called");
+        Log.v(tag, "onStart() called");
         startInitialisation();
-
     }
 
-    private void startInitialisation()
-    {
+    private void startInitialisation() {
 
         loginExecutorService = myApplication.getExecutorService();
         emailTextInputLayout = activityLoginBinding.emailInputLayout;
@@ -150,104 +129,69 @@ public class Login extends AppCompatActivity
         googleLoginButton = activityLoginBinding.googleSignInButton;
         loginReadableDatabase = myApplication.readableDatabase;
         checkUserExistsOrNot();
-
         setListeners();
-    }
-
-    private void setListeners()
-    {
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginUser();
-            }
-        });
-
-        register.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(loginContext, Registration.class);
-                startActivity(intent);
-            }
-
-        });
-
-        helperText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(loginContext, forgotDetails.class);
-                startActivity(intent);
-            }
-
-        });
-
-        emailInput.setOnFocusChangeListener(new View.OnFocusChangeListener()
-        {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus)
-            {
-                if (!hasFocus && Objects.requireNonNull(emailInput.getText()).length() != 0) {
-                    ((myApplication)getApplicationContext()).checkEmail(emailTextInputLayout,emailInput);
-                    addTextWatcher(emailInput);
-                }
-            }
-        });
-
-        passwordInput.setOnFocusChangeListener(new View.OnFocusChangeListener()
-        {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus)
-            {
-                if (!hasFocus && Objects.requireNonNull(passwordInput.getText()).length() != 0) {
-                    ((myApplication)getApplicationContext()).checkPassword(passwordTextInputLayout,passwordInput);
-                    addTextWatcher(passwordInput);
-                }
-            }
-
-        });
-
-        googleLoginButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                signInWithGoogle.launch(googleSignInClient.getSignInIntent());
-            }
-
-        });
 
     }
 
-    private void loginUser()
-    {
-        if(!((myApplication)getApplicationContext()).checkEmail(emailTextInputLayout,emailInput))
-        {
-            if(!((myApplication)getApplicationContext()).checkPassword(passwordTextInputLayout,passwordInput))
+    private void setListeners() {
+        loginButton.setOnClickListener(view -> loginUser());
+
+        register.setOnClickListener(view -> {
+            Intent intent = new Intent(loginContext, Registration.class);
+            if (helperText.getVisibility() == View.VISIBLE)
+            {
+                Gson gson = new Gson();
+                intent.putExtra("oneUserExists", true);
+                intent.putExtra("thatParticularUser", gson.toJson(user));
+            }
+            startActivity(intent);
+        });
+
+        helperText.setOnClickListener(v -> {
+            Intent intent = new Intent(loginContext, forgotDetails.class);
+            startActivity(intent);
+        });
+
+        emailInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus && Objects.requireNonNull(emailInput.getText()).length() != 0) {
+                ((myApplication) getApplicationContext()).checkEmail(emailTextInputLayout, emailInput);
+                addTextWatcher(emailInput);
+            }
+        });
+
+        passwordInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus && Objects.requireNonNull(passwordInput.getText()).length() != 0) {
+                ((myApplication) getApplicationContext()).checkPassword(passwordTextInputLayout, passwordInput);
+                addTextWatcher(passwordInput);
+            }
+        });
+
+        googleLoginButton.setOnClickListener(v -> signInWithGoogle.launch(googleSignInClientLoginActivity.getSignInIntent()));
+
+    }
+
+    private void loginUser() {
+
+        if (!((myApplication) getApplicationContext()).checkEmail(emailTextInputLayout, emailInput)) {
+            if (!((myApplication) getApplicationContext()).checkPassword(passwordTextInputLayout, passwordInput))
                 addTextWatcher(passwordInput);
             addTextWatcher(emailInput);
             emailTextInputLayout.requestFocus();
-        }
-        else if(!((myApplication)getApplicationContext()).checkPassword(passwordTextInputLayout,passwordInput))
-        {
+        } else if (!((myApplication) getApplicationContext()).checkPassword(passwordTextInputLayout, passwordInput)) {
             addTextWatcher(passwordInput);
             passwordTextInputLayout.requestFocus();
-        }
-        else
-        {
-            if(user == null)
-                dialogIt(R.string.invalidUser);
-            else
-            {
-                if(Objects.requireNonNull(emailInput.getText()).toString().equals(user.getEmail()) && Objects.requireNonNull(passwordInput.getText()).toString().equals(user.getPassword()))
+        } else {
+            if (user == null)
+                myApplication.dialogIt(R.string.invalidUser, loginContext);
+            else {
+                if (Objects.requireNonNull(emailInput.getText()).toString().equals(user.getEmail()) && Objects.requireNonNull(passwordInput.getText()).toString().equals(user.getPassword()))
                     rightCredentialFollowUp();
-                else if(emailInput.getText().toString().equals(user.getEmail()))
-                    dialogIt(R.string.incorrectPassword);
-                else if(Objects.requireNonNull(passwordInput.getText()).toString().equals(user.getPassword()))
-                    dialogIt(R.string.incorrectEmail);
+                else if (emailInput.getText().toString().equals(user.getEmail()))
+                    myApplication.dialogIt(R.string.incorrectPassword, loginContext);
+                else if (Objects.requireNonNull(passwordInput.getText()).toString().equals(user.getPassword()))
+                    myApplication.dialogIt(R.string.incorrectEmail, loginContext);
                 else
-                    dialogIt(R.string.incorrectLoginDetails);
+                    myApplication.dialogIt(R.string.incorrectLoginDetails, loginContext);
             }
         }
     }
@@ -261,95 +205,66 @@ public class Login extends AppCompatActivity
         finish();
     }
 
-    private void addTextWatcher(TextInputEditText textInputEditText)
-    {
-        textInputEditText.addTextChangedListener(new TextWatcher()
-        {
+    private void addTextWatcher(TextInputEditText textInputEditText) {
+        textInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
-            {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
-            {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
             @Override
-            public void afterTextChanged(Editable editable)
-            {
-                if(textInputEditText.getId() == R.id.emailInput)
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (textInputEditText.getId() == R.id.emailInput)
                     ((myApplication) getApplicationContext()).checkEmail(emailTextInputLayout, emailInput);
                 else
-                    ((myApplication)getApplicationContext()).checkPassword(passwordTextInputLayout,passwordInput);
+                    ((myApplication) getApplicationContext()).checkPassword(passwordTextInputLayout, passwordInput);
                 checkErrorText(textInputEditText.getParent().getParent());
             }
 
         });
-
     }
 
     private void checkUserExistsOrNot()
     {
-        loginExecutorService.execute(new Runnable()
+        loginExecutorService.execute(() ->
         {
-            @Override
-            public void run()
+            Cursor cursor = loginReadableDatabase.query("user", null, null, null, null, null, null);
+            if (cursor.getCount() > 0)
             {
-                Cursor cursor = loginReadableDatabase.query("user",null,null,null,null,null,null);
-                if(cursor.getCount() > 0)
-                {
-                    cursor.moveToNext();
-                    user = new user();
-                    user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
-                    user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow("password")));
-                    user.setUserId(cursor.getInt(cursor.getColumnIndexOrThrow("userId")));
-                    user.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
-                    user.setRemainedAmount(cursor.getDouble(cursor.getColumnIndexOrThrow("remainedAmount")));
-                    user.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
-                    loginContext.runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            helperText.setVisibility(View.VISIBLE);
-                            helperText.setOnClickListener(new View.OnClickListener()
-                            {
-                                @Override
-                                public void onClick(View v)
-                                {
-                                    startActivity(new Intent(loginContext, forgotDetails.class));
-                                }
-
-                            });
-                        }
-                    });
-                }
-                cursor.close();
+                cursor.moveToNext();
+                user = new user();
+                user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
+                user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow("password")));
+                user.setUserId(cursor.getInt(cursor.getColumnIndexOrThrow("userId")));
+                user.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
+                user.setRemainedAmount(cursor.getDouble(cursor.getColumnIndexOrThrow("remainedAmount")));
+                user.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                loginContext.runOnUiThread(() -> {
+                    helperText.setVisibility(View.VISIBLE);
+                    helperText.setOnClickListener(v -> startActivity(new Intent(loginContext, forgotDetails.class)));
+                });
             }
+
+            cursor.close();
+
         });
 
-    }
-
-    private void dialogIt(int messageId)
-    {
-        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(loginContext);
-        materialAlertDialogBuilder.setMessage(messageId);
-        materialAlertDialogBuilder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        materialAlertDialogBuilder.show();
     }
 
     private void checkErrorText(ViewParent viewParent)
     {
-        if(((TextInputLayout)viewParent).getError() == null)
-            ((TextInputLayout)viewParent).setErrorEnabled(false);
+        if (((TextInputLayout) viewParent).getError() == null)
+            ((TextInputLayout) viewParent).setErrorEnabled(false);
+    }
+
+    public static void finishLogin()
+    {
+        loginContext.finish();
     }
 
 }

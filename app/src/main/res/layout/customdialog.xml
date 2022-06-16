@@ -1,107 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imageView_1"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/shop_cart"
-        android:backgroundTint="@color/darkBlue"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/textview_1"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/shopping"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:contentDescription="@string/shoppingImage"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="40dp"/>
-
-    <TextView
-        android:id="@+id/textview_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/imageView_1"
-        app:layout_constraintTop_toTopOf="@id/imageView_1"
-        app:layout_constraintBottom_toBottomOf="@id/imageView_1"
+        app:layout_constraintTop_toTopOf="parent"
         android:text="@string/shopping"
-        android:textSize="15sp"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/black"/>
-    <ImageView
-        android:id="@+id/imageView_2"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/investment"
-        android:backgroundTint="@color/darkBlue"
-        app:layout_constraintTop_toBottomOf="@id/imageView_1"
-        app:layout_constraintLeft_toLeftOf="@id/imageView_1"
-        app:layout_constraintRight_toLeftOf="@id/textview_2"
-        android:contentDescription="@string/shoppingImage"
-        android:layout_marginTop="10dp"/>
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        app:drawableStartCompat="@drawable/shop_cart"
+        android:drawablePadding="10dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:id="@+id/textview_2"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/investment"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/imageView_2"
-        app:layout_constraintTop_toTopOf="@id/imageView_2"
-        app:layout_constraintBottom_toBottomOf="@id/imageView_2"
+        android:layout_height="48dp"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="@+id/shopping"
+        app:layout_constraintTop_toBottomOf="@id/shopping"
         android:text="@string/Investment"
-        android:textSize="15sp"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/black"/>
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        app:drawableStartCompat="@drawable/investment"
+        android:drawablePadding="10dp"/>
 
-    <ImageView
-        android:id="@+id/imageView_3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/loan"
-        android:backgroundTint="@color/darkBlue"
-        app:layout_constraintTop_toBottomOf="@id/imageView_2"
-        app:layout_constraintRight_toLeftOf="@id/textview_3"
-        app:layout_constraintLeft_toLeftOf="@id/imageView_2"
-        android:contentDescription="@string/shoppingImage"
-        android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:id="@+id/textview_3"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/loans"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/imageView_3"
-        app:layout_constraintTop_toTopOf="@id/imageView_3"
-        app:layout_constraintBottom_toBottomOf="@id/imageView_3"
+        android:layout_height="48dp"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="@id/investment"
+        app:layout_constraintTop_toBottomOf="@id/investment"
         android:text="@string/loan"
-        android:textSize="15sp"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/black" />
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        app:drawableStartCompat="@drawable/loan"
+        android:drawablePadding="10dp"/>
 
-    <ImageView
-        android:id="@+id/imageView_4"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/send_receive"
-        android:backgroundTint="@color/darkBlue"
-        app:layout_constraintTop_toBottomOf="@id/imageView_3"
-        app:layout_constraintLeft_toLeftOf="@id/imageView_3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/textview_4"
-        android:contentDescription="@string/shoppingImage"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"/>
-
-    <TextView
-        android:id="@+id/textview_4"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/sendReceive"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="@+id/loans"
+        app:layout_constraintTop_toBottomOf="@id/loans"
         android:text="@string/sendReceive"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@id/imageView_4"
-        app:layout_constraintLeft_toRightOf="@id/imageView_4"
-        app:layout_constraintTop_toTopOf="@id/imageView_4"
-        android:layout_marginStart="10dp"
-        />
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        app:drawableStartCompat="@drawable/send_receive"
+        android:drawablePadding="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

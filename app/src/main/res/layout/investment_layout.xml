@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/investmentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/investmentNameColon"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/investmentNameData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/investmentName"
+            app:layout_constraintBottom_toBottomOf="@id/investmentName"
+            app:layout_constraintLeft_toRightOf="@id/investmentName"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/amountInvested"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/investmentName"
+            app:layout_constraintTop_toBottomOf="@id/investmentName"
+            android:text="@string/amountInvestedColon"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:layout_marginTop="15dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/amountInvestedData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/amountInvested"
+            app:layout_constraintBottom_toBottomOf="@id/amountInvested"
+            app:layout_constraintLeft_toRightOf="@id/amountInvested"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/investmentStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/amountInvested"
+            app:layout_constraintTop_toBottomOf="@id/amountInvested"
+            android:text="@string/investmentStartDateColon"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:layout_marginTop="15dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/investmentStartData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/investmentStartDate"
+            app:layout_constraintBottom_toBottomOf="@id/investmentStartDate"
+            app:layout_constraintLeft_toRightOf="@id/investmentStartDate"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/investmentClosingDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/investmentStartDate"
+            app:layout_constraintTop_toBottomOf="@id/investmentStartDate"
+            android:text="@string/investmentCloseDataColon"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:layout_marginTop="15dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/investmentClosingDateData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/investmentClosingDate"
+            app:layout_constraintBottom_toBottomOf="@id/investmentClosingDate"
+            app:layout_constraintLeft_toRightOf="@id/investmentClosingDate"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/monthlyRateOfInterest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/investmentClosingDate"
+            app:layout_constraintTop_toBottomOf="@id/investmentClosingDate"
+            android:text="@string/rateOfInterestColon"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:layout_marginTop="15dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/monthlyRateOfInterestData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/monthlyRateOfInterest"
+            app:layout_constraintBottom_toBottomOf="@id/monthlyRateOfInterest"
+            app:layout_constraintLeft_toRightOf="@id/monthlyRateOfInterest"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/monthlyProfit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/monthlyRateOfInterest"
+            app:layout_constraintTop_toBottomOf="@id/monthlyRateOfInterest"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/calculatedProfit"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/monthlyProfitData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/monthlyProfit"
+            app:layout_constraintBottom_toBottomOf="@id/monthlyProfit"
+            app:layout_constraintLeft_toRightOf="@id/monthlyProfit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

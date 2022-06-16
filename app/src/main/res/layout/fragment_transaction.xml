@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.transactionFragment"
+    android:overScrollMode="never">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filters"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+    <RadioGroup
+        android:id="@+id/transactionRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/filters"
+        app:layout_constraintTop_toBottomOf="@id/filters"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/allRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/shoppingRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shopping"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/investmentRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/investment"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/profitRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profit"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/loanRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loan"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/loanPaymentRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loanPayment"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/sendRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send"/>
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/receiveRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/receive"/>
+
+    </RadioGroup>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/showTransactionMoreThanSomeAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/transactionRadioGroup"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/transactionRadioGroup"
+        app:layout_constraintBottom_toBottomOf="@id/transactionRadioGroup"
+        android:text="@string/showTransactionMoreThan"
+        app:layout_constraintVertical_bias="0.4"
+        android:layout_marginEnd="15dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amountTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/showTransactionMoreThanSomeAmount"
+        app:layout_constraintRight_toRightOf="@id/showTransactionMoreThanSomeAmount"
+        app:layout_constraintTop_toBottomOf="@id/showTransactionMoreThanSomeAmount"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="@string/enterAmount"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amountTextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.MaterialTimePicker.Title"
+            android:inputType="number"
+            android:importantForAutofill="no"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/show"
+            app:layout_constraintLeft_toLeftOf="@id/amountTextInputLayout"
+            app:layout_constraintRight_toRightOf="@id/amountTextInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/amountTextInputLayout"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/transactionsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/transactionRadioGroup"
+        android:overScrollMode="never"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/nothingToShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nothingToShow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/transactionRadioGroup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
