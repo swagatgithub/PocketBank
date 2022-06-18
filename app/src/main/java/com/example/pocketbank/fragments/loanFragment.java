@@ -12,29 +12,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.pocketbank.MainActivity;
+import com.example.pocketbank.R;
 import com.example.pocketbank.adapters.loansAdapter;
 import com.example.pocketbank.databinding.FragmentLoanBinding;
 import com.example.pocketbank.model.loan;
 import com.example.pocketbank.myApplication;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 
 public class loanFragment extends Fragment
 {
-
     private RecyclerView recyclerView;
     private com.example.pocketbank.adapters.loansAdapter loansAdapter ;
+    private static final String tag ="loanFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         loansAdapter = new loansAdapter();
+        Log.v(tag , "onCreate");
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        Log.v(tag , "onCreateView");
+        ((MainActivity) Objects.requireNonNull(requireActivity())).bottomNavigationView.setSelectedItemId(R.id.loan);
         FragmentLoanBinding fragmentLoanBinding = FragmentLoanBinding.inflate(getLayoutInflater(), container, false);
         recyclerView = fragmentLoanBinding.loanRecyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -45,6 +50,7 @@ public class loanFragment extends Fragment
     public void onStart()
     {
         super.onStart();
+        Log.v(tag , "onStart()..");
         executeAllDbOperations();
     }
 

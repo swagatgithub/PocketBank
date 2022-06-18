@@ -1,6 +1,5 @@
 package com.example.pocketbank.fragments;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -34,17 +33,13 @@ public class homeFragment extends Fragment
     private double remainedAmount;
     private ArrayList<Transaction> transactionArrayList;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
-        Log.v(homeFragmentTag , "onCreate");
-        super.onCreate(savedInstanceState);
-    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         Log.v(homeFragmentTag , "onCreateView");
+        ((MainActivity)requireActivity()).bottomNavigationView.setSelectedItemId(R.id.home);
         return FragmentHomeBinding.inflate(inflater, container, false).getRoot();
     }
 
@@ -81,6 +76,8 @@ public class homeFragment extends Fragment
         super.onStart();
         executeAllDatabaseOperations();
     }
+
+
 
     private void executeAllDatabaseOperations()
     {
@@ -127,22 +124,5 @@ public class homeFragment extends Fragment
 
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        Log.v("homeFragment" , "onAttach");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.v(homeFragmentTag , "onDetach");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.v(homeFragmentTag , "onDestroyView");
-    }
 
 }

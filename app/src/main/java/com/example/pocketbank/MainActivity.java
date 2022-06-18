@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
@@ -34,7 +33,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     public ExecutorService executorServiceMainActivity;
     public SQLiteDatabase readableDatabaseMainActivity;
     public BottomNavigationView bottomNavigationView;
-    public MaterialToolbar toolbar;
+    private MaterialToolbar toolbar;
     private String email,name;
     public int userId;
     private DrawerLayout drawerLayout;
@@ -62,86 +60,86 @@ public class MainActivity extends AppCompatActivity
     private File userProfileImageFile,appImageDirectory,croppedImageFile;
     private Uri imageFileContentUri;
     private MenuItem previousItem;
-    private boolean transactionFragment =false ,loanFragment = false , investmentFragment = false , statisticsFragment = false , homeFragment = false ;
+    //private boolean firstTimeTransactionFragment = true , firstTimeLoanFragment = true , firstTimeInvestmentFragment = true , firstTimeStatisticsFragment = true , firstTimeHomeFragment = true ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
+        if(savedInstanceState == null)
+            getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer , homeFragment.class , null , "homeFragment").commit();
+
         ActivityMainBinding activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        activityMainBinding.bottomNavigationView.setOnItemReselectedListener((item) ->
+            Log.v(TAG , "onNavigationItemReselected"));
 
         activityMainBinding.bottomNavigationView.setOnItemSelectedListener( item ->
         {
             if(item.getItemId() == R.id.home)
             {
-                Log.v(TAG, "inside home part");
                 doNotSelect(previousItem);
                 toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_32);
                 toolbar.setTitle(R.string.app_name);
                 toolbar.setTag(getString(R.string.navigationDrawer));
-                previousItem = item;
                 item.setIcon(R.drawable.ic_baseline_home_24);
-                if(!homeFragment)
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, homeFragment.class, null, "homeFragment").commit();
-                return true;
+                while(!Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "homeFragment"))
+                    onBackPressed();
+                previousItem = item;
             }
             else if (item.getItemId() == R.id.investment)
             {
+                if(!Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "investmentFragment"))
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , investmentFragment.class , null ,"investmentFragment").addToBackStack(null).commit();
                 doNotSelect(previousItem);
                 toolbar.setTitle(R.string.investments);
                 toolbar.setNavigationIcon(R.drawable.arrow_back_24);
                 toolbar.setTag(getString(R.string.backArrow));
-                previousItem = item;
                 item.setIcon(R.drawable.ic_baseline_currency_rupee_24);
-                if(!investmentFragment)
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , investmentFragment.class , null ,"investmentFragment").addToBackStack(null).commit();
-                return true;
+                previousItem = item;
             }
             else if (item.getItemId() == R.id.loan)
             {
+                if(!Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "loanFragment"))
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, loanFragment.class, null, "loanFragment").addToBackStack(null).commit();
                 doNotSelect(previousItem);
                 toolbar.setTitle(R.string.loan);
                 toolbar.setNavigationIcon(R.drawable.arrow_back_24);
                 toolbar.setTag(getString(R.string.backArrow));
-                previousItem = item;
                 item.setIcon(R.drawable.ic_baseline_event_available_24);
-                if(!loanFragment)
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , loanFragment.class , null , "loanFragment" ).addToBackStack(null).commit();
-                return true;
+                previousItem = item;
             }
             else if(item.getItemId() == R.id.transactions)
             {
+                if (!Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "transactionFragment"))
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, transactionFragment.class, null, "transactionFragment").addToBackStack(null).commit();
                 doNotSelect(previousItem);
                 toolbar.setTitle(R.string.transactions);
                 toolbar.setNavigationIcon(R.drawable.arrow_back_24);
                 toolbar.setTag(getString(R.string.backArrow));
-                if(!transactionFragment)
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , transactionFragment.class ,null , "transactionFragment").addToBackStack(null).commit();
-                previousItem = item;
                 item.setIcon(R.drawable.ic_baseline_swap_vert_24);
-                return true;
+                previousItem = item;
             }
             else
             {
+                if (!Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "statisticsFragment"))
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, statisticsFragment.class, null, "statisticsFragment").addToBackStack(null).commit();
                 doNotSelect(previousItem);
                 toolbar.setTitle(R.string.statistics);
                 toolbar.setNavigationIcon(R.drawable.arrow_back_24);
                 toolbar.setTag(getString(R.string.backArrow));
-                if(!statisticsFragment)
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer , statisticsFragment.class ,null , "statisticsFragment").addToBackStack(null).commit();
-                previousItem = item;
                 item.setIcon(R.drawable.ic_baseline_trending_up_24);
-                return true;
+                previousItem = item;
             }
-
+            return true;
         });
 
         setContentView(activityMainBinding.getRoot());
 
         startInitialisation(activityMainBinding);
 
-        activityMainBinding.bottomNavigationView.setSelectedItemId(R.id.home);
+
 
     }
 
@@ -159,6 +157,7 @@ public class MainActivity extends AppCompatActivity
         Log.v(TAG , "onResume() has been called..");
         super.onResume();
         setValueToViews();
+
     }
 
     private void startInitialisation(ActivityMainBinding activityMainBinding)
@@ -359,14 +358,16 @@ public class MainActivity extends AppCompatActivity
         cropImage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
         {
             CropImage.ActivityResult croppedImage = CropImage.getActivityResult(result.getData());
+
             if (result.getResultCode() == RESULT_OK)
             {
                 Uri resultUri = Objects.requireNonNull(croppedImage).getUri();
+
                 userProfileImage.setImageURI(resultUri);
-                if(!appImageDirectory.exists())
-                {
+
+                if(!appImageDirectory.exists()) {
                     boolean created = appImageDirectory.mkdir();
-                    Log.v(TAG , Boolean.toString(created));
+                    Log.v(TAG, Boolean.toString(created));
                 }
 
                 Toast.makeText(mainActivityContext,R.string.profilePhotoUpdated,Toast.LENGTH_SHORT).show();
@@ -443,38 +444,6 @@ public class MainActivity extends AppCompatActivity
     {
         boolean deleted = croppedImageFile.delete();
         Log.v(TAG ,Boolean.toString(deleted));
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-            if(getSupportFragmentManager().getBackStackEntryCount() > 0)
-            {
-                if(getSupportFragmentManager().popBackStackImmediate()) {
-                    if (Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "transactionFragment")) {
-                        transactionFragment = true ;
-                        bottomNavigationView.setSelectedItemId(R.id.transactions);
-                    }
-                    else if(  Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "loanFragment") ) {
-                        loanFragment = true ;
-                        bottomNavigationView.setSelectedItemId(R.id.loan);
-                    }
-                    else if( Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "investmentFragment")) {
-                        investmentFragment = true ;
-                        bottomNavigationView.setSelectedItemId(R.id.investment);
-                    }
-                    else if( Objects.equals(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainer)).getTag(), "statisticsFragment")) {
-                        statisticsFragment = true ;
-                        bottomNavigationView.setSelectedItemId(R.id.statistics);
-                    }
-                    else {
-                        homeFragment = true ;
-                        bottomNavigationView.setSelectedItemId(R.id.home);
-                    }
-                }
-            }
-            else
-                super.onBackPressed();
     }
 
 }

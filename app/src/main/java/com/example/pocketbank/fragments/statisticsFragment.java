@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.pocketbank.MainActivity;
+import com.example.pocketbank.R;
 import com.example.pocketbank.databinding.FragmentStatisticsBinding;
 import com.example.pocketbank.model.Transaction;
 import com.example.pocketbank.model.loan;
@@ -43,6 +44,7 @@ public class statisticsFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
+        Log.v(Tag , "onCreate()..");
         super.onCreate(savedInstanceState);
         hostActivity = ((MainActivity)requireHost());
     }
@@ -50,6 +52,8 @@ public class statisticsFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.v(Tag , "onCreateView");
+        ((MainActivity) Objects.requireNonNull(requireActivity())).bottomNavigationView.setSelectedItemId(R.id.statistics);
         FragmentStatisticsBinding fragmentStatisticsBinding = FragmentStatisticsBinding.inflate(inflater, container, false);
         barChart = fragmentStatisticsBinding.barChartStatisticsFragment;
         pieChart = fragmentStatisticsBinding.pieChartStatisticsFragment;
@@ -59,6 +63,7 @@ public class statisticsFragment extends Fragment
     @Override
     public void onStart()
     {
+        Log.v(Tag , "onStart()..");
         super.onStart();
         executeDatabaseOperations();
     }

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.pocketbank.MainActivity;
+import com.example.pocketbank.R;
 import com.example.pocketbank.adapters.investmentAdapter;
 import com.example.pocketbank.databinding.FragmentInvestmentBinding;
 import com.example.pocketbank.model.investment;
@@ -24,15 +25,17 @@ import java.util.concurrent.ExecutorService;
 
 public class investmentFragment extends Fragment
 {
-
     private static final String TAG = "investmentFragment";
     private RecyclerView investmentRecyclerView;
     private com.example.pocketbank.adapters.investmentAdapter investmentAdapter;
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         Log.v(TAG , "onCreateView Called..");
+        ((MainActivity) Objects.requireNonNull(requireActivity())).bottomNavigationView.setSelectedItemId(R.id.investment);
         FragmentInvestmentBinding fragmentInvestmentBinding = FragmentInvestmentBinding.inflate(inflater, container, false);
         investmentRecyclerView = fragmentInvestmentBinding.investmentsRecyclerView;
         investmentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -44,6 +47,7 @@ public class investmentFragment extends Fragment
     public void onStart()
     {
         super.onStart();
+        Log.v(TAG , "onStart");
         executeDatabaseOperations();
     }
 

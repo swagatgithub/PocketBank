@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,40 +25,39 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 
-public class transactionFragment extends Fragment
-{
-
-    private RecyclerView recyclerView ;
+public class transactionFragment extends Fragment {
+    private RecyclerView recyclerView;
     private transactionAdapter transactionAdapter;
     private SQLiteDatabase readableDatabase;
     private ExecutorService executorServiceTransactionFragment;
     private MaterialTextView noTransactionsToShowTextView;
+    private static final String Tag = "transactionFragment";
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(Tag, "onCreate");
         transactionAdapter = new transactionAdapter();
     }
 
     @Override
-    public void onAttach(@NonNull Context context)
-    {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        Log.v(Tag, "onAttach");
         readableDatabase = ((MainActivity) Objects.requireNonNull(requireHost())).readableDatabaseMainActivity;
         executorServiceTransactionFragment = ((MainActivity) Objects.requireNonNull(requireHost())).executorServiceMainActivity;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        FragmentTransactionBinding fragmentTransactionBinding = FragmentTransactionBinding.inflate( inflater , container , false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.v(Tag, "onCreateView");
+        ((MainActivity) Objects.requireNonNull(requireActivity())).bottomNavigationView.setSelectedItemId(R.id.transactions);
+        FragmentTransactionBinding fragmentTransactionBinding = FragmentTransactionBinding.inflate(inflater, container, false);
         startInitialization(fragmentTransactionBinding);
         return fragmentTransactionBinding.getRoot();
     }
 
-    private void startInitialization(FragmentTransactionBinding fragmentTransactionBinding)
-    {
+    private void startInitialization(FragmentTransactionBinding fragmentTransactionBinding) {
         noTransactionsToShowTextView = fragmentTransactionBinding.nothingToShow;
 
         recyclerView = fragmentTransactionBinding.transactionsRecyclerView;
@@ -66,30 +66,29 @@ public class transactionFragment extends Fragment
 
         fragmentTransactionBinding.transactionRadioGroup.setOnCheckedChangeListener((RadioGroup group, int checkedId) ->
         {
-            switch (checkedId)
-            {
-                case  R.id.allRadioButton:
+            switch (checkedId) {
+                case R.id.allRadioButton:
                     getTransactionsFromDatabase("all");
                     break;
-                case  R.id.profitRadioButton:
+                case R.id.profitRadioButton:
                     getTransactionsFromDatabase("Profit");
                     break;
-                case  R.id.loanRadioButton:
+                case R.id.loanRadioButton:
                     getTransactionsFromDatabase("loan");
                     break;
-                case  R.id.loanPaymentRadioButton:
+                case R.id.loanPaymentRadioButton:
                     getTransactionsFromDatabase("loanPayment");
                     break;
-                case  R.id.sendRadioButton:
+                case R.id.sendRadioButton:
                     getTransactionsFromDatabase("send");
                     break;
-                case  R.id.receiveRadioButton:
+                case R.id.receiveRadioButton:
                     getTransactionsFromDatabase("receive");
                     break;
-                case  R.id.shoppingRadioButton:
+                case R.id.shoppingRadioButton:
                     getTransactionsFromDatabase("shopping");
                     break;
-                case  R.id.investmentRadioButton:
+                case R.id.investmentRadioButton:
                     getTransactionsFromDatabase("Investment");
                     break;
             }
@@ -98,35 +97,29 @@ public class transactionFragment extends Fragment
 
         fragmentTransactionBinding.show.setOnClickListener((v) ->
         {
-            if(Objects.requireNonNull(fragmentTransactionBinding.amountTextInputEditText.getText()).length() == 0)
-            {
+            if (Objects.requireNonNull(fragmentTransactionBinding.amountTextInputEditText.getText()).length() == 0) {
                 fragmentTransactionBinding.amountTextInputLayout.setError(getString(R.string.pleaseEnterAmount));
                 fragmentTransactionBinding.amountTextInputEditText.requestFocus();
-                fragmentTransactionBinding.amountTextInputEditText.addTextChangedListener(new TextWatcher()
-                {
+                fragmentTransactionBinding.amountTextInputEditText.addTextChangedListener(new TextWatcher() {
 
                     @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after)
-                    {
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                     }
 
                     @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count)
-                    {
-                        if(s.length() != 0)
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (s.length() != 0)
                             fragmentTransactionBinding.amountTextInputLayout.setError(null);
                     }
 
                     @Override
-                    public void afterTextChanged(Editable s)
-                    {
+                    public void afterTextChanged(Editable s) {
 
                     }
 
                 });
-            }
-            else
+            } else
                 fetchTransactionsMoreThanGivenAmount(Double.parseDouble(fragmentTransactionBinding.amountTextInputEditText.getText().toString()));
         });
 
@@ -134,18 +127,16 @@ public class transactionFragment extends Fragment
 
     }
 
-    private void fetchTransactionsMoreThanGivenAmount(double givenAmount)
-    {
+    private void fetchTransactionsMoreThanGivenAmount(double givenAmount) {
 
-        executorServiceTransactionFragment.execute( () ->
+        executorServiceTransactionFragment.execute(() ->
         {
 
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
 
-            Cursor cursor = readableDatabase.query("transactions" , null , "amount >= ?" , new String[]{Double.toString(givenAmount)} , null ,null ,"date desc");
+            Cursor cursor = readableDatabase.query("transactions", null, "amount >= ?", new String[]{Double.toString(givenAmount)}, null, null, "date desc");
 
-            while(cursor.moveToNext())
-            {
+            while (cursor.moveToNext()) {
                 Transaction transaction = new Transaction();
                 transaction.setDate(cursor.getString(cursor.getColumnIndexOrThrow("date")));
                 transaction.setAmount(cursor.getDouble(cursor.getColumnIndexOrThrow("amount")));
@@ -164,6 +155,7 @@ public class transactionFragment extends Fragment
 
     private void getTransactionsFromDatabase(String transactionType)
     {
+
         executorServiceTransactionFragment.execute(() ->
         {
             Cursor cursor;
@@ -193,15 +185,12 @@ public class transactionFragment extends Fragment
 
     private void showResults(ArrayList<Transaction> transactionArrayList)
     {
-        if(transactionArrayList.size() > 0)
-        {
+        if (transactionArrayList.size() > 0) {
             noTransactionsToShowTextView.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             transactionAdapter.setData(transactionArrayList);
             recyclerView.setAdapter(transactionAdapter);
-        }
-        else
-        {
+        } else {
             recyclerView.setVisibility(View.GONE);
             noTransactionsToShowTextView.setVisibility(View.VISIBLE);
         }
